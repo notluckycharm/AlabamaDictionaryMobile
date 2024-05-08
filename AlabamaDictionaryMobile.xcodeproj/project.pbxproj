@@ -1,0 +1,622 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		492E7B122BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B112BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift */; };
+		492E7B142BEB23B500F3A30E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B132BEB23B500F3A30E /* ContentView.swift */; };
+		492E7B162BEB23B600F3A30E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 492E7B152BEB23B600F3A30E /* Assets.xcassets */; };
+		492E7B1A2BEB23B600F3A30E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 492E7B192BEB23B600F3A30E /* Preview Assets.xcassets */; };
+		492E7B242BEB23B600F3A30E /* AlabamaDictionaryMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B232BEB23B600F3A30E /* AlabamaDictionaryMobileTests.swift */; };
+		492E7B2E2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B2D2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift */; };
+		492E7B302BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		492E7B202BEB23B600F3A30E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 492E7B062BEB23B500F3A30E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 492E7B0D2BEB23B500F3A30E;
+			remoteInfo = AlabamaDictionaryMobile;
+		};
+		492E7B2A2BEB23B600F3A30E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 492E7B062BEB23B500F3A30E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 492E7B0D2BEB23B500F3A30E;
+			remoteInfo = AlabamaDictionaryMobile;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		492E7B0E2BEB23B500F3A30E /* AlabamaDictionaryMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlabamaDictionaryMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		492E7B112BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileApp.swift; sourceTree = "<group>"; };
+		492E7B132BEB23B500F3A30E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		492E7B152BEB23B600F3A30E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		492E7B172BEB23B600F3A30E /* AlabamaDictionaryMobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AlabamaDictionaryMobile.entitlements; sourceTree = "<group>"; };
+		492E7B192BEB23B600F3A30E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		492E7B1F2BEB23B600F3A30E /* AlabamaDictionaryMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlabamaDictionaryMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		492E7B232BEB23B600F3A30E /* AlabamaDictionaryMobileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileTests.swift; sourceTree = "<group>"; };
+		492E7B292BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlabamaDictionaryMobileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		492E7B2D2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileUITests.swift; sourceTree = "<group>"; };
+		492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		492E7B0B2BEB23B500F3A30E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492E7B1C2BEB23B600F3A30E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492E7B262BEB23B600F3A30E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		492E7B052BEB23B500F3A30E = {
+			isa = PBXGroup;
+			children = (
+				492E7B102BEB23B500F3A30E /* AlabamaDictionaryMobile */,
+				492E7B222BEB23B600F3A30E /* AlabamaDictionaryMobileTests */,
+				492E7B2C2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests */,
+				492E7B0F2BEB23B500F3A30E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		492E7B0F2BEB23B500F3A30E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				492E7B0E2BEB23B500F3A30E /* AlabamaDictionaryMobile.app */,
+				492E7B1F2BEB23B600F3A30E /* AlabamaDictionaryMobileTests.xctest */,
+				492E7B292BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		492E7B102BEB23B500F3A30E /* AlabamaDictionaryMobile */ = {
+			isa = PBXGroup;
+			children = (
+				492E7B112BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift */,
+				492E7B132BEB23B500F3A30E /* ContentView.swift */,
+				492E7B152BEB23B600F3A30E /* Assets.xcassets */,
+				492E7B172BEB23B600F3A30E /* AlabamaDictionaryMobile.entitlements */,
+				492E7B182BEB23B600F3A30E /* Preview Content */,
+			);
+			path = AlabamaDictionaryMobile;
+			sourceTree = "<group>";
+		};
+		492E7B182BEB23B600F3A30E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				492E7B192BEB23B600F3A30E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		492E7B222BEB23B600F3A30E /* AlabamaDictionaryMobileTests */ = {
+			isa = PBXGroup;
+			children = (
+				492E7B232BEB23B600F3A30E /* AlabamaDictionaryMobileTests.swift */,
+			);
+			path = AlabamaDictionaryMobileTests;
+			sourceTree = "<group>";
+		};
+		492E7B2C2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests */ = {
+			isa = PBXGroup;
+			children = (
+				492E7B2D2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift */,
+				492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */,
+			);
+			path = AlabamaDictionaryMobileUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		492E7B0D2BEB23B500F3A30E /* AlabamaDictionaryMobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 492E7B332BEB23B600F3A30E /* Build configuration list for PBXNativeTarget "AlabamaDictionaryMobile" */;
+			buildPhases = (
+				492E7B0A2BEB23B500F3A30E /* Sources */,
+				492E7B0B2BEB23B500F3A30E /* Frameworks */,
+				492E7B0C2BEB23B500F3A30E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AlabamaDictionaryMobile;
+			productName = AlabamaDictionaryMobile;
+			productReference = 492E7B0E2BEB23B500F3A30E /* AlabamaDictionaryMobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+		492E7B1E2BEB23B600F3A30E /* AlabamaDictionaryMobileTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 492E7B362BEB23B600F3A30E /* Build configuration list for PBXNativeTarget "AlabamaDictionaryMobileTests" */;
+			buildPhases = (
+				492E7B1B2BEB23B600F3A30E /* Sources */,
+				492E7B1C2BEB23B600F3A30E /* Frameworks */,
+				492E7B1D2BEB23B600F3A30E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				492E7B212BEB23B600F3A30E /* PBXTargetDependency */,
+			);
+			name = AlabamaDictionaryMobileTests;
+			productName = AlabamaDictionaryMobileTests;
+			productReference = 492E7B1F2BEB23B600F3A30E /* AlabamaDictionaryMobileTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		492E7B282BEB23B600F3A30E /* AlabamaDictionaryMobileUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 492E7B392BEB23B600F3A30E /* Build configuration list for PBXNativeTarget "AlabamaDictionaryMobileUITests" */;
+			buildPhases = (
+				492E7B252BEB23B600F3A30E /* Sources */,
+				492E7B262BEB23B600F3A30E /* Frameworks */,
+				492E7B272BEB23B600F3A30E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				492E7B2B2BEB23B600F3A30E /* PBXTargetDependency */,
+			);
+			name = AlabamaDictionaryMobileUITests;
+			productName = AlabamaDictionaryMobileUITests;
+			productReference = 492E7B292BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		492E7B062BEB23B500F3A30E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					492E7B0D2BEB23B500F3A30E = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					492E7B1E2BEB23B600F3A30E = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 492E7B0D2BEB23B500F3A30E;
+					};
+					492E7B282BEB23B600F3A30E = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 492E7B0D2BEB23B500F3A30E;
+					};
+				};
+			};
+			buildConfigurationList = 492E7B092BEB23B500F3A30E /* Build configuration list for PBXProject "AlabamaDictionaryMobile" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 492E7B052BEB23B500F3A30E;
+			productRefGroup = 492E7B0F2BEB23B500F3A30E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				492E7B0D2BEB23B500F3A30E /* AlabamaDictionaryMobile */,
+				492E7B1E2BEB23B600F3A30E /* AlabamaDictionaryMobileTests */,
+				492E7B282BEB23B600F3A30E /* AlabamaDictionaryMobileUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		492E7B0C2BEB23B500F3A30E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				492E7B1A2BEB23B600F3A30E /* Preview Assets.xcassets in Resources */,
+				492E7B162BEB23B600F3A30E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492E7B1D2BEB23B600F3A30E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492E7B272BEB23B600F3A30E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		492E7B0A2BEB23B500F3A30E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				492E7B142BEB23B500F3A30E /* ContentView.swift in Sources */,
+				492E7B122BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492E7B1B2BEB23B600F3A30E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				492E7B242BEB23B600F3A30E /* AlabamaDictionaryMobileTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		492E7B252BEB23B600F3A30E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				492E7B302BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift in Sources */,
+				492E7B2E2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		492E7B212BEB23B600F3A30E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 492E7B0D2BEB23B500F3A30E /* AlabamaDictionaryMobile */;
+			targetProxy = 492E7B202BEB23B600F3A30E /* PBXContainerItemProxy */;
+		};
+		492E7B2B2BEB23B600F3A30E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 492E7B0D2BEB23B500F3A30E /* AlabamaDictionaryMobile */;
+			targetProxy = 492E7B2A2BEB23B600F3A30E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		492E7B312BEB23B600F3A30E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		492E7B322BEB23B600F3A30E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		492E7B342BEB23B600F3A30E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AlabamaDictionaryMobile/AlabamaDictionaryMobile.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AlabamaDictionaryMobile/Preview Content\"";
+				DEVELOPMENT_TEAM = 42JWN7H6YR;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Harvard-University.AlabamaDictionaryMobile";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		492E7B352BEB23B600F3A30E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AlabamaDictionaryMobile/AlabamaDictionaryMobile.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AlabamaDictionaryMobile/Preview Content\"";
+				DEVELOPMENT_TEAM = 42JWN7H6YR;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Harvard-University.AlabamaDictionaryMobile";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		492E7B372BEB23B600F3A30E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 42JWN7H6YR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Harvard-University.AlabamaDictionaryMobileTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlabamaDictionaryMobile.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AlabamaDictionaryMobile";
+			};
+			name = Debug;
+		};
+		492E7B382BEB23B600F3A30E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 42JWN7H6YR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Harvard-University.AlabamaDictionaryMobileTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlabamaDictionaryMobile.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AlabamaDictionaryMobile";
+			};
+			name = Release;
+		};
+		492E7B3A2BEB23B600F3A30E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 42JWN7H6YR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Harvard-University.AlabamaDictionaryMobileUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AlabamaDictionaryMobile;
+			};
+			name = Debug;
+		};
+		492E7B3B2BEB23B600F3A30E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 42JWN7H6YR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Harvard-University.AlabamaDictionaryMobileUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AlabamaDictionaryMobile;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		492E7B092BEB23B500F3A30E /* Build configuration list for PBXProject "AlabamaDictionaryMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				492E7B312BEB23B600F3A30E /* Debug */,
+				492E7B322BEB23B600F3A30E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		492E7B332BEB23B600F3A30E /* Build configuration list for PBXNativeTarget "AlabamaDictionaryMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				492E7B342BEB23B600F3A30E /* Debug */,
+				492E7B352BEB23B600F3A30E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		492E7B362BEB23B600F3A30E /* Build configuration list for PBXNativeTarget "AlabamaDictionaryMobileTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				492E7B372BEB23B600F3A30E /* Debug */,
+				492E7B382BEB23B600F3A30E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		492E7B392BEB23B600F3A30E /* Build configuration list for PBXNativeTarget "AlabamaDictionaryMobileUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				492E7B3A2BEB23B600F3A30E /* Debug */,
+				492E7B3B2BEB23B600F3A30E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 492E7B062BEB23B500F3A30E /* Project object */;
+}
