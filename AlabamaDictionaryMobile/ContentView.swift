@@ -95,7 +95,7 @@ struct ContentView: View {
         }
 
         shownMax = filteredEntries.count
-        searchResults = Array(filteredEntries.prefix(50))
+        searchResults = Array(filteredEntries[shown..<shown+min(50,shownMax-shown)])
     }
 
     func updateResults(count: Int) {
@@ -163,16 +163,23 @@ struct SearchBarView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 60, height: 60)
                 Text("Alabama Dictionary")
-                    .font(.system(size: 20, weight: .medium))
+                    .font(.system(size: 25, weight: .medium))
                     .foregroundColor(.primary)
                     .padding(.vertical)
             }
             .padding(.top, 0)
             HStack(spacing: -10) {
                 ZStack {
-                    TextField("Search for an Alabama or English word", text: $searchText, onEditingChanged: { _ in dictSort() })
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextField("Search in Alabama or English", text: $searchText, onEditingChanged: { _ in dictSort() })
+                        .frame(height: 48)
+                        .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
+                                        .cornerRadius(5)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(lineWidth: 1.0)
+                                        )
                         .padding()
+                        .font(Font.system(size:20))
                         .overlay(
                             HStack {
                                 Spacer()
@@ -180,7 +187,7 @@ struct SearchBarView: View {
                                     Button(action: clearInput) {
                                         Image(systemName: "xmark.circle")
                                             .foregroundColor(.gray)
-                                            .padding(.trailing, 10)
+                                            .padding(.trailing, 20)
                                     }
                                 }
                             }
@@ -219,7 +226,9 @@ struct SearchBarView: View {
         } else {
             mode = "default"
         }
-        dictSort()
+        if searchText != "" {
+            dictSort()
+        }
     }
 }
 
@@ -238,9 +247,7 @@ struct ResultsNavigationView: View {
                     
             }
             .frame(height: 10.0)
-            Spacer()
             Text("\(shown) - \(shown + min(50, shownMax - shown)) Results Shown out of \(shownMax)")
-            Spacer()
             Button(action: { updateResults(50) }) {
                 Text(">").font(.system(size: 30))
             }
