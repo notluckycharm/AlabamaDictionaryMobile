@@ -14,6 +14,7 @@
 		492E7B242BEB23B600F3A30E /* AlabamaDictionaryMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B232BEB23B600F3A30E /* AlabamaDictionaryMobileTests.swift */; };
 		492E7B2E2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B2D2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift */; };
 		492E7B302BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */; };
+		49E068CD2D2078B600F81A3C /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E068CC2D2078B600F81A3C /* EditorView.swift */; };
 		49EC06AA2C0A93300088D3DD /* dict.json in Resources */ = {isa = PBXBuildFile; fileRef = 49EC06A92C0A93300088D3DD /* dict.json */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		492E7B2D2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileUITests.swift; sourceTree = "<group>"; };
 		492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		49E068C92D1FCCED00F81A3C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		49E068CC2D2078B600F81A3C /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		49EC06A92C0A93300088D3DD /* dict.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dict.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				492E7B112BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift */,
+				49E068CC2D2078B600F81A3C /* EditorView.swift */,
 				492E7B132BEB23B500F3A30E /* ContentView.swift */,
 				49EC06A92C0A93300088D3DD /* dict.json */,
 				492E7B152BEB23B600F3A30E /* Assets.xcassets */,
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49E068CD2D2078B600F81A3C /* EditorView.swift in Sources */,
 				492E7B142BEB23B500F3A30E /* ContentView.swift in Sources */,
 				492E7B122BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift in Sources */,
 			);

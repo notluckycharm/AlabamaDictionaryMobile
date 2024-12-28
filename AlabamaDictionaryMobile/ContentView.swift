@@ -16,7 +16,7 @@ struct DictionaryEntry: Identifiable, Codable {
     let derivation: String?
     let notes: String?
     let relatedTerms: [String]?
-
+    
     enum CodingKeys: String, CodingKey {
         case lemma, definition, wordClass = "class", principalPart, derivation, notes, relatedTerms
     }
@@ -57,16 +57,21 @@ struct ContentView: View {
     @State private var allEntries: [DictionaryEntry] = []
 
     var body: some View {
-        VStack(spacing: 0) {
-            SearchBarView(searchText: $searchText, mode: $mode, dictSort: dictSort, clearInput: clearInput)
-            ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
-            ResultsView(searchResults: $searchResults)
-        }
-        .padding()
-        .onAppear {
-            let dictionaryData: DictionaryData = loadJSON("dict.json")
-            allEntries = dictionaryData.words
-            dictSort()
+        VStack{
+            HeaderView()
+            NavigationStack{
+                VStack(spacing: 0) {
+                    SearchBarView(searchText: $searchText, mode: $mode, dictSort: dictSort, clearInput: clearInput)
+                    ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
+                    ResultsView(searchResults: $searchResults)
+                }
+            }
+            .padding()
+            .onAppear {
+                let dictionaryData: DictionaryData = loadJSON("dict.json")
+                allEntries = dictionaryData.words
+                dictSort()
+            }
         }
     }
 
@@ -149,14 +154,9 @@ struct ContentView: View {
     }
 }
 
-struct SearchBarView: View {
-    @Binding var searchText: String
-    @Binding var mode: String
-    var dictSort: () -> Void
-    var clearInput: () -> Void
-    let characters = ["ɬ", "á", "à", "ó", "ò", "í", "ì", "ⁿ"]
+struct HeaderView: View {
     var body: some View {
-        VStack(spacing: 0){
+        VStack(){
             HStack(alignment: .center, spacing: 16) {
                 Image("Alabama-Coushata")
                     .resizable()
@@ -167,7 +167,19 @@ struct SearchBarView: View {
                     .foregroundColor(.primary)
                     .padding(.vertical)
             }
-            .padding(.top, 0)
+        }
+        .padding(.top, 0)
+    }
+}
+
+struct SearchBarView: View {
+    @Binding var searchText: String
+    @Binding var mode: String
+    var dictSort: () -> Void
+    var clearInput: () -> Void
+    let characters = ["ɬ", "á", "à", "ó", "ò", "í", "ì", "ⁿ"]
+    var body: some View {
+        VStack(spacing: 0){
             HStack(spacing: -10) {
                 ZStack {
                     TextField("Search in Alabama or English", text: $searchText, onEditingChanged: { _ in dictSort() })
@@ -259,46 +271,50 @@ struct ResultsView: View {
     @Binding var searchResults: [DictionaryEntry]
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                ForEach(searchResults) { entry in
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(entry.lemma)
-                                .font(.headline)
-                            Spacer()
-                            if let wordClass = entry.wordClass, wordClass != "nan" {
-                                                        Text("[\(wordClass)]")
-                                                    }
-                        }
-                        if let derivation = entry.derivation, derivation != "nan" {
-                            Text(derivation)
-                                .italic()
-                        }
-                        Text(entry.definition)
-                            .font(.system(size: 16))
-                        if let principalPart = entry.principalPart, principalPart != "nan" {
-                            let parts = principalPart.split(separator: ", ").map { String($0) }
-                            let labels = ["first person plural", "second person plural", "second person plural"]
+            ScrollView {
+                VStack(alignment: .leading) {
+                    ForEach(searchResults) { entry in
+                        VStack(alignment: .leading) {
+                            HStack {
+                                // Use NavigationLink to make the lemma clickable
+                                NavigationLink(destination: EditorView(entry: entry)) {
+                                    Text(entry.lemma)
+                                        .font(.headline)
+                                        .textSelection(.enabled)
+                                }
+                                Spacer()
+                                if let wordClass = entry.wordClass, wordClass != "nan" {
+                                    Text("[\(wordClass)]")
+                                }
+                            }
+                            if let derivation = entry.derivation, derivation != "nan" {
+                                Text(derivation)
+                                    .italic()
+                            }
+                            Text(entry.definition)
+                                .font(.system(size: 16))
+                            if let principalPart = entry.principalPart, principalPart != "nan" {
+                                let parts = principalPart.split(separator: ", ").map { String($0) }
+                                let labels = ["first person plural", "second person plural", "third person plural"]
 
-                            ForEach(parts.indices, id: \.self) { index in
-                                if index < labels.count {
-                                    HStack {
-                                        Text(parts[index])
-                                        Spacer()
-                                        Text(labels[index]).italic()
+                                ForEach(parts.indices, id: \.self) { index in
+                                    if index < labels.count {
+                                        HStack {
+                                            Text(parts[index]).textSelection(.enabled)
+                                            Spacer()
+                                            Text(labels[index]).italic()
+                                        }
                                     }
                                 }
                             }
                         }
+                        .padding()
+                        Divider()
                     }
-                    .padding()
-                    Divider()
                 }
             }
+            .frame(maxHeight: .infinity)
         }
-        .frame(maxHeight: .infinity)
-    }
 }
 
 

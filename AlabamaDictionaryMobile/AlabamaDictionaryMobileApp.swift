@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct AlabamaDictionaryMobileApp: App {
     var body: some Scene {
-        WindowGroup {
+        WindowGroup(id:"home") {
             ContentView()
         }
     }
