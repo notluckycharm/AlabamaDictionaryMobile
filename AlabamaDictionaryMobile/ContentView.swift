@@ -176,7 +176,7 @@ struct SearchBarView: View {
     var clearInput: () -> Void
 
     var body: some View {
-        HStack {
+        HStack(spacing: -10) {
             TextField("Search for an Alabama or English word", text: $searchText, onEditingChanged: { _ in dictSort() })
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
@@ -199,7 +199,6 @@ struct SearchBarView: View {
         } else {
             mode = "default"
         }
-        dictSort()
     }
 }
 
@@ -241,12 +240,15 @@ struct ResultsNavigationView: View {
         HStack {
             Button(action: { updateResults(-50) }) {
                 Text("<")
+                    .font(.system(size: 30))
+                    
             }
+            .frame(height: 10.0)
             Spacer()
             Text("\(shown) - \(shown + min(50, shownMax - shown)) Results Shown out of \(shownMax)")
             Spacer()
             Button(action: { updateResults(50) }) {
-                Text(">")
+                Text(">").font(.system(size: 30))
             }
         }
     }
