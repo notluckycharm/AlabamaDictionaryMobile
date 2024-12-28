@@ -46,6 +46,7 @@
 		492E7B292BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlabamaDictionaryMobileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		492E7B2D2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileUITests.swift; sourceTree = "<group>"; };
 		492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		49E068C92D1FCCED00F81A3C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		49EC06A92C0A93300088D3DD /* dict.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dict.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +78,7 @@
 		492E7B052BEB23B500F3A30E = {
 			isa = PBXGroup;
 			children = (
+				49E068C92D1FCCED00F81A3C /* README.md */,
 				492E7B102BEB23B500F3A30E /* AlabamaDictionaryMobile */,
 				492E7B222BEB23B600F3A30E /* AlabamaDictionaryMobileTests */,
 				492E7B2C2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests */,

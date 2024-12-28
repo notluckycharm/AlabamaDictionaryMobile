@@ -58,12 +58,9 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            HeaderView()
             SearchBarView(searchText: $searchText, mode: $mode, dictSort: dictSort, clearInput: clearInput)
-            CharacterButtonsView(searchText: $searchText, dictSort: dictSort)
             ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
             ResultsView(searchResults: $searchResults)
-            FooterView()
         }
         .padding()
         .onAppear {
@@ -152,44 +149,67 @@ struct ContentView: View {
     }
 }
 
-
-struct HeaderView: View {
-    var body: some View {
-        HStack(alignment: .center, spacing: 16) {
-            Image("Alabama-Coushata")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
-            Text("Alabama to English Dictionary Online")
-                .font(.system(size: 20, weight: .medium))
-                .foregroundColor(.primary)
-                .padding(.vertical)
-        }
-        .padding(.top, 0)
-    }
-}
-
 struct SearchBarView: View {
     @Binding var searchText: String
     @Binding var mode: String
     var dictSort: () -> Void
     var clearInput: () -> Void
-
+    let characters = ["ɬ", "á", "à", "ó", "ò", "í", "ì", "ⁿ"]
     var body: some View {
-        HStack(spacing: -10) {
-            TextField("Search for an Alabama or English word", text: $searchText, onEditingChanged: { _ in dictSort() })
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-            Button(action: clearInput) {
-                Image(systemName: "xmark.circle")
-                    .padding()
+        VStack(spacing: 0){
+            HStack(alignment: .center, spacing: 16) {
+                Image("Alabama-Coushata")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 60, height: 60)
+                Text("Alabama Dictionary")
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundColor(.primary)
+                    .padding(.vertical)
             }
-            Button(action: { useRE() }) {
-                Text("[.*]")
-                    .padding()
-                    .background(mode == "default" ? Color.white : Color.blue)
-                    .cornerRadius(10)
+            .padding(.top, 0)
+            HStack(spacing: -10) {
+                ZStack {
+                    TextField("Search for an Alabama or English word", text: $searchText, onEditingChanged: { _ in dictSort() })
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                        .overlay(
+                            HStack {
+                                Spacer()
+                                if !searchText.isEmpty {
+                                    Button(action: clearInput) {
+                                        Image(systemName: "xmark.circle")
+                                            .foregroundColor(.gray)
+                                            .padding(.trailing, 10)
+                                    }
+                                }
+                            }
+                        )
+                }
+                Button(action: { useRE() }) {
+                    Text("[.*]")
+                        .padding()
+                        .background(mode == "default" ? Color.white : Color.blue)
+                        .foregroundStyle(mode == "default" ? Color.blue : Color.white)
+                        .cornerRadius(10)
+                }
             }
+            HStack(spacing: 0) {
+                ForEach(characters, id: \.self) { character in
+                    ZStack {
+                        Button(action: {
+                            searchText.append(character)
+                            dictSort()
+                        }) {
+                            Text(character)
+                                .frame(minWidth: 44, maxHeight: 44)  // Adjust the width and height as needed
+                                .background(Color.blue.opacity(0.2))  // Optional: Add background color for better visibility
+                                .cornerRadius(0)  // Optional: Set corner radius to 0 to avoid rounded corners
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .center)  // Ensure buttons take up available width
         }
     }
 
@@ -199,33 +219,7 @@ struct SearchBarView: View {
         } else {
             mode = "default"
         }
-    }
-}
-
-
-struct CharacterButtonsView: View {
-    @Binding var searchText: String
-    var dictSort: () -> Void
-
-    let characters = ["ɬ", "á", "à", "ó", "ò", "í", "ì", "◌ⁿ"]
-
-    var body: some View {
-        HStack(spacing: 0) {
-            ForEach(characters, id: \.self) { character in
-                ZStack {
-                    Button(action: {
-                        searchText.append(character)
-                        dictSort()
-                    }) {
-                        Text(character)
-                            .frame(minWidth: 44, maxHeight: 44)  // Adjust the width and height as needed
-                            .background(Color.blue.opacity(0.2))  // Optional: Add background color for better visibility
-                            .cornerRadius(0)  // Optional: Set corner radius to 0 to avoid rounded corners
-                    }
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .center)  // Ensure buttons take up available width
+        dictSort()
     }
 }
 
@@ -300,16 +294,6 @@ struct ResultsView: View {
     }
 }
 
-
-struct FooterView: View {
-    var body: some View {
-        VStack(alignment: .leading) {
-            Divider()
-            Text("Data sourced from the Dictionary of the Alabama Language by Cora Sylvestine, Heather K. Hardy, and Thomas Montler.")
-        }
-        .padding()
-    }
-}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
