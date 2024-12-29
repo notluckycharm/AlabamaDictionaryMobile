@@ -16,9 +16,10 @@ struct DictionaryEntry: Identifiable, Codable {
     let derivation: String?
     let notes: String?
     let relatedTerms: [String]?
-    
+    let audio: [String]
+
     enum CodingKeys: String, CodingKey {
-        case lemma, definition, wordClass = "class", principalPart, derivation, notes, relatedTerms
+        case lemma, definition, wordClass = "class", principalPart, derivation, notes, relatedTerms, audio
     }
 }
 

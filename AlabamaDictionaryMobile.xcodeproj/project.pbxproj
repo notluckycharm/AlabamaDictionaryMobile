@@ -15,6 +15,111 @@
 		492E7B2E2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B2D2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift */; };
 		492E7B302BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */; };
 		49E068CD2D2078B600F81A3C /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E068CC2D2078B600F81A3C /* EditorView.swift */; };
+		49E06A0B2D20CCF200F81A3C /* áapo-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069A12D20CCF200F81A3C /* áapo-fe.wav */; };
+		49E06A0C2D20CCF200F81A3C /* iischoba-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D52D20CCF200F81A3C /* iischoba-fe.wav */; };
+		49E06A0D2D20CCF200F81A3C /* hánnàali-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069C52D20CCF200F81A3C /* hánnàali-fe.wav */; };
+		49E06A0E2D20CCF200F81A3C /* aasobohli-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069A22D20CCF200F81A3C /* aasobohli-fe.wav */; };
+		49E06A0F2D20CCF200F81A3C /* ittibi-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069DD2D20CCF200F81A3C /* ittibi-db.wav */; };
+		49E06A102D20CCF200F81A3C /* sooka-lb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069F92D20CCF200F81A3C /* sooka-lb.wav */; };
+		49E06A112D20CCF200F81A3C /* akaaka-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069AB2D20CCF200F81A3C /* akaaka-fe.wav */; };
+		49E06A122D20CCF200F81A3C /* oofatta-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069EF2D20CCF200F81A3C /* oofatta-jw.wav */; };
+		49E06A132D20CCF200F81A3C /* kowaachosi-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069E12D20CCF200F81A3C /* kowaachosi-jw.wav */; };
+		49E06A142D20CCF200F81A3C /* alotka-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069AE2D20CCF200F81A3C /* alotka-fe.wav */; };
+		49E06A152D20CCF200F81A3C /* hompani-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069CC2D20CCF200F81A3C /* hompani-jw.wav */; };
+		49E06A162D20CCF200F81A3C /* hoopa-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069CD2D20CCF200F81A3C /* hoopa-jw.wav */; };
+		49E06A172D20CCF200F81A3C /* aissi-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069AA2D20CCF200F81A3C /* aissi-jw.wav */; };
+		49E06A182D20CCF200F81A3C /* tótchìina-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E06A012D20CCF200F81A3C /* tótchìina-fe.wav */; };
+		49E06A192D20CCF200F81A3C /* hissi-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069C92D20CCF200F81A3C /* hissi-fe.wav */; };
+		49E06A1A2D20CCF200F81A3C /* waliichi-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E06A042D20CCF200F81A3C /* waliichi-fe.wav */; };
+		49E06A1B2D20CCF200F81A3C /* chiyahli-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069B92D20CCF200F81A3C /* chiyahli-fe.wav */; };
+		49E06A1C2D20CCF200F81A3C /* pókkòoli-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069F52D20CCF200F81A3C /* pókkòoli-fe.wav */; };
+		49E06A1D2D20CCF200F81A3C /* achihba-lb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069A72D20CCF200F81A3C /* achihba-lb.wav */; };
+		49E06A1E2D20CCF200F81A3C /* chákkàali-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069B62D20CCF200F81A3C /* chákkàali-fe.wav */; };
+		49E06A1F2D20CCF200F81A3C /* nochi-jb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069EA2D20CCF200F81A3C /* nochi-jb.wav */; };
+		49E06A202D20CCF200F81A3C /* aatipachoba-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069A42D20CCF200F81A3C /* aatipachoba-db.wav */; };
+		49E06A212D20CCF200F81A3C /* alikchi-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069AD2D20CCF200F81A3C /* alikchi-jw.wav */; };
+		49E06A222D20CCF200F81A3C /* hachonchoba-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069C32D20CCF200F81A3C /* hachonchoba-jw.wav */; };
+		49E06A232D20CCF200F81A3C /* waliika-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E06A062D20CCF200F81A3C /* waliika-fe.wav */; };
+		49E06A242D20CCF200F81A3C /* choopa-lb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069BB2D20CCF200F81A3C /* choopa-lb.wav */; };
+		49E06A252D20CCF200F81A3C /* awo-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069B22D20CCF200F81A3C /* awo-fe.wav */; };
+		49E06A262D20CCF200F81A3C /* ilakomayli-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D62D20CCF200F81A3C /* ilakomayli-db.wav */; };
+		49E06A272D20CCF200F81A3C /* hachonchoba-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069C22D20CCF200F81A3C /* hachonchoba-db.wav */; };
+		49E06A282D20CCF200F81A3C /* foosi-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069C02D20CCF200F81A3C /* foosi-db.wav */; };
+		49E06A292D20CCF200F81A3C /* afaaka-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069A92D20CCF200F81A3C /* afaaka-fe.wav */; };
+		49E06A2A2D20CCF200F81A3C /* hopooni-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069CE2D20CCF200F81A3C /* hopooni-db.wav */; };
+		49E06A2B2D20CCF200F81A3C /* altoba-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069AF2D20CCF200F81A3C /* altoba-fe.wav */; };
+		49E06A2C2D20CCF200F81A3C /* hapi-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069C62D20CCF200F81A3C /* hapi-db.wav */; };
+		49E06A2D2D20CCF200F81A3C /* halki-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069C42D20CCF200F81A3C /* halki-fe.wav */; };
+		49E06A2E2D20CCF200F81A3C /* aɬíina-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069B02D20CCF200F81A3C /* aɬíina-fe.wav */; };
+		49E06A2F2D20CCF200F81A3C /* bitli-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069B32D20CCF200F81A3C /* bitli-db.wav */; };
+		49E06A302D20CCF200F81A3C /* tikba-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069FF2D20CCF200F81A3C /* tikba-fe.wav */; };
+		49E06A312D20CCF200F81A3C /* icho-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D12D20CCF200F81A3C /* icho-db.wav */; };
+		49E06A322D20CCF200F81A3C /* ontòklo-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069EB2D20CCF200F81A3C /* ontòklo-fe.wav */; };
+		49E06A332D20CCF200F81A3C /* tótchìina-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E06A022D20CCF200F81A3C /* tótchìina-jw.wav */; };
+		49E06A342D20CCF200F81A3C /* afaaka-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069A82D20CCF200F81A3C /* afaaka-db.wav */; };
+		49E06A352D20CCF200F81A3C /* icho-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D32D20CCF200F81A3C /* icho-jw.wav */; };
+		49E06A362D20CCF200F81A3C /* óstàaka-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069F22D20CCF200F81A3C /* óstàaka-fe.wav */; };
+		49E06A372D20CCF200F81A3C /* aatinka-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069A32D20CCF200F81A3C /* aatinka-fe.wav */; };
+		49E06A382D20CCF200F81A3C /* hapka-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069C82D20CCF200F81A3C /* hapka-fe.wav */; };
+		49E06A392D20CCF200F81A3C /* fiito-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069BF2D20CCF200F81A3C /* fiito-jw.wav */; };
+		49E06A3A2D20CCF200F81A3C /* oolimpa-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069F02D20CCF200F81A3C /* oolimpa-fe.wav */; };
+		49E06A3B2D20CCF200F81A3C /* táɬɬàapi-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069FA2D20CCF200F81A3C /* táɬɬàapi-fe.wav */; };
+		49E06A3C2D20CCF200F81A3C /* waso-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E06A072D20CCF200F81A3C /* waso-db.wav */; };
+		49E06A3D2D20CCF200F81A3C /* wayàali-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E06A092D20CCF200F81A3C /* wayàali-fe.wav */; };
+		49E06A3E2D20CCF200F81A3C /* chofkoni-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069BA2D20CCF200F81A3C /* chofkoni-fe.wav */; };
+		49E06A3F2D20CCF200F81A3C /* cháffàaka-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069B52D20CCF200F81A3C /* cháffàaka-fe.wav */; };
+		49E06A402D20CCF200F81A3C /* naani-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069E52D20CCF200F81A3C /* naani-fe.wav */; };
+		49E06A412D20CCF200F81A3C /* tayyi-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069FD2D20CCF200F81A3C /* tayyi-fe.wav */; };
+		49E06A422D20CCF200F81A3C /* tòklo-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E06A002D20CCF200F81A3C /* tòklo-fe.wav */; };
+		49E06A432D20CCF200F81A3C /* maawayàali-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069E22D20CCF200F81A3C /* maawayàali-db.wav */; };
+		49E06A442D20CCF200F81A3C /* foosi-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069C12D20CCF200F81A3C /* foosi-jw.wav */; };
+		49E06A452D20CCF200F81A3C /* isilka-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069DB2D20CCF200F81A3C /* isilka-fe.wav */; };
+		49E06A462D20CCF200F81A3C /* oolimpa-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069F12D20CCF200F81A3C /* oolimpa-jw.wav */; };
+		49E06A472D20CCF200F81A3C /* ittibi-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069DE2D20CCF200F81A3C /* ittibi-fe.wav */; };
+		49E06A482D20CCF200F81A3C /* aboska-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069A52D20CCF200F81A3C /* aboska-fe.wav */; };
+		49E06A492D20CCF200F81A3C /* icho-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D22D20CCF200F81A3C /* icho-fe.wav */; };
+		49E06A4A2D20CCF200F81A3C /* chichoba-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069B72D20CCF200F81A3C /* chichoba-db.wav */; };
+		49E06A4B2D20CCF200F81A3C /* sobayli-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069F82D20CCF200F81A3C /* sobayli-fe.wav */; };
+		49E06A4C2D20CCF200F81A3C /* istinka-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069DC2D20CCF200F81A3C /* istinka-fe.wav */; };
+		49E06A4D2D20CCF200F81A3C /* inkowàasa-lb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D92D20CCF200F81A3C /* inkowàasa-lb.wav */; };
+		49E06A4E2D20CCF200F81A3C /* oyba-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069F32D20CCF200F81A3C /* oyba-fe.wav */; };
+		49E06A4F2D20CCF200F81A3C /* tayyiha-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069FE2D20CCF200F81A3C /* tayyiha-fe.wav */; };
+		49E06A502D20CCF200F81A3C /* waliichi-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E06A032D20CCF200F81A3C /* waliichi-db.wav */; };
+		49E06A512D20CCF200F81A3C /* nita-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069E82D20CCF200F81A3C /* nita-db.wav */; };
+		49E06A522D20CCF200F81A3C /* tapassòola-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069FB2D20CCF200F81A3C /* tapassòola-db.wav */; };
+		49E06A532D20CCF200F81A3C /* bitli-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069B42D20CCF200F81A3C /* bitli-fe.wav */; };
+		49E06A542D20CCF200F81A3C /* pìila-lb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069F42D20CCF200F81A3C /* pìila-lb.wav */; };
+		49E06A552D20CCF200F81A3C /* kóosi-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069E02D20CCF200F81A3C /* kóosi-fe.wav */; };
+		49E06A562D20CCF200F81A3C /* pokkotòoli-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069F62D20CCF200F81A3C /* pokkotòoli-jw.wav */; };
+		49E06A572D20CCF200F81A3C /* aɬɬa-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069B12D20CCF200F81A3C /* aɬɬa-fe.wav */; };
+		49E06A582D20CCF200F81A3C /* innaani-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069DA2D20CCF200F81A3C /* innaani-fe.wav */; };
+		49E06A592D20CCF200F81A3C /* falanka-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069BC2D20CCF200F81A3C /* falanka-db.wav */; };
+		49E06A5A2D20CCF200F81A3C /* ontótchìina-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069EC2D20CCF200F81A3C /* ontótchìina-fe.wav */; };
+		49E06A5B2D20CCF200F81A3C /* móosi-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069E42D20CCF200F81A3C /* móosi-fe.wav */; };
+		49E06A5C2D20CCF200F81A3C /* imahaalochi-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D82D20CCF200F81A3C /* imahaalochi-fe.wav */; };
+		49E06A5D2D20CCF200F81A3C /* hissi-lb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069CA2D20CCF200F81A3C /* hissi-lb.wav */; };
+		49E06A5E2D20CCF200F81A3C /* fiito-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069BE2D20CCF200F81A3C /* fiito-db.wav */; };
+		49E06A5F2D20CCF200F81A3C /* oofatta-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069EE2D20CCF200F81A3C /* oofatta-db.wav */; };
+		49E06A602D20CCF200F81A3C /* nita-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069E92D20CCF200F81A3C /* nita-jw.wav */; };
+		49E06A612D20CCF200F81A3C /* nihtallo-lb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069E72D20CCF200F81A3C /* nihtallo-lb.wav */; };
+		49E06A622D20CCF200F81A3C /* hapi-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069C72D20CCF200F81A3C /* hapi-jw.wav */; };
+		49E06A632D20CCF200F81A3C /* mahli-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069E32D20CCF200F81A3C /* mahli-jw.wav */; };
+		49E06A642D20CCF200F81A3C /* ilbi-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D72D20CCF200F81A3C /* ilbi-fe.wav */; };
+		49E06A652D20CCF200F81A3C /* ifa-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D42D20CCF200F81A3C /* ifa-fe.wav */; };
+		49E06A662D20CCF200F81A3C /* falanka-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069BD2D20CCF200F81A3C /* falanka-fe.wav */; };
+		49E06A672D20CCF200F81A3C /* waliika-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E06A052D20CCF200F81A3C /* waliika-db.wav */; };
+		49E06A682D20CCF200F81A3C /* ittòɬpa-lb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069DF2D20CCF200F81A3C /* ittòɬpa-lb.wav */; };
+		49E06A692D20CCF200F81A3C /* nampohchi-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069E62D20CCF200F81A3C /* nampohchi-fe.wav */; };
+		49E06A6A2D20CCF200F81A3C /* oofa-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069ED2D20CCF200F81A3C /* oofa-fe.wav */; };
+		49E06A6B2D20CCF200F81A3C /* hopooni-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069CF2D20CCF200F81A3C /* hopooni-fe.wav */; };
+		49E06A6C2D20CCF200F81A3C /* achaapa-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069A62D20CCF200F81A3C /* achaapa-fe.wav */; };
+		49E06A6D2D20CCF200F81A3C /* holpa-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069CB2D20CCF200F81A3C /* holpa-jw.wav */; };
+		49E06A6E2D20CCF200F81A3C /* tapassòola-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069FC2D20CCF200F81A3C /* tapassòola-jw.wav */; };
+		49E06A6F2D20CCF200F81A3C /* sakba-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069F72D20CCF200F81A3C /* sakba-fe.wav */; };
+		49E06A702D20CCF200F81A3C /* ibisaani-lb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D02D20CCF200F81A3C /* ibisaani-lb.wav */; };
+		49E06A712D20CCF200F81A3C /* akaakanaani-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069AC2D20CCF200F81A3C /* akaakanaani-fe.wav */; };
+		49E06A722D20CCF200F81A3C /* waso-jw.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E06A082D20CCF200F81A3C /* waso-jw.wav */; };
+		49E06A732D20CCF200F81A3C /* chiyahli-db.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069B82D20CCF200F81A3C /* chiyahli-db.wav */; };
 		49EC06AA2C0A93300088D3DD /* dict.json in Resources */ = {isa = PBXBuildFile; fileRef = 49EC06A92C0A93300088D3DD /* dict.json */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +154,111 @@
 		492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		49E068C92D1FCCED00F81A3C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		49E068CC2D2078B600F81A3C /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
+		49E069A12D20CCF200F81A3C /* áapo-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "áapo-fe.wav"; sourceTree = "<group>"; };
+		49E069A22D20CCF200F81A3C /* aasobohli-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aasobohli-fe.wav"; sourceTree = "<group>"; };
+		49E069A32D20CCF200F81A3C /* aatinka-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aatinka-fe.wav"; sourceTree = "<group>"; };
+		49E069A42D20CCF200F81A3C /* aatipachoba-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aatipachoba-db.wav"; sourceTree = "<group>"; };
+		49E069A52D20CCF200F81A3C /* aboska-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aboska-fe.wav"; sourceTree = "<group>"; };
+		49E069A62D20CCF200F81A3C /* achaapa-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "achaapa-fe.wav"; sourceTree = "<group>"; };
+		49E069A72D20CCF200F81A3C /* achihba-lb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "achihba-lb.wav"; sourceTree = "<group>"; };
+		49E069A82D20CCF200F81A3C /* afaaka-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "afaaka-db.wav"; sourceTree = "<group>"; };
+		49E069A92D20CCF200F81A3C /* afaaka-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "afaaka-fe.wav"; sourceTree = "<group>"; };
+		49E069AA2D20CCF200F81A3C /* aissi-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aissi-jw.wav"; sourceTree = "<group>"; };
+		49E069AB2D20CCF200F81A3C /* akaaka-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "akaaka-fe.wav"; sourceTree = "<group>"; };
+		49E069AC2D20CCF200F81A3C /* akaakanaani-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "akaakanaani-fe.wav"; sourceTree = "<group>"; };
+		49E069AD2D20CCF200F81A3C /* alikchi-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "alikchi-jw.wav"; sourceTree = "<group>"; };
+		49E069AE2D20CCF200F81A3C /* alotka-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "alotka-fe.wav"; sourceTree = "<group>"; };
+		49E069AF2D20CCF200F81A3C /* altoba-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "altoba-fe.wav"; sourceTree = "<group>"; };
+		49E069B02D20CCF200F81A3C /* aɬíina-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aɬíina-fe.wav"; sourceTree = "<group>"; };
+		49E069B12D20CCF200F81A3C /* aɬɬa-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aɬɬa-fe.wav"; sourceTree = "<group>"; };
+		49E069B22D20CCF200F81A3C /* awo-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "awo-fe.wav"; sourceTree = "<group>"; };
+		49E069B32D20CCF200F81A3C /* bitli-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "bitli-db.wav"; sourceTree = "<group>"; };
+		49E069B42D20CCF200F81A3C /* bitli-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "bitli-fe.wav"; sourceTree = "<group>"; };
+		49E069B52D20CCF200F81A3C /* cháffàaka-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "cháffàaka-fe.wav"; sourceTree = "<group>"; };
+		49E069B62D20CCF200F81A3C /* chákkàali-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chákkàali-fe.wav"; sourceTree = "<group>"; };
+		49E069B72D20CCF200F81A3C /* chichoba-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chichoba-db.wav"; sourceTree = "<group>"; };
+		49E069B82D20CCF200F81A3C /* chiyahli-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chiyahli-db.wav"; sourceTree = "<group>"; };
+		49E069B92D20CCF200F81A3C /* chiyahli-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chiyahli-fe.wav"; sourceTree = "<group>"; };
+		49E069BA2D20CCF200F81A3C /* chofkoni-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chofkoni-fe.wav"; sourceTree = "<group>"; };
+		49E069BB2D20CCF200F81A3C /* choopa-lb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "choopa-lb.wav"; sourceTree = "<group>"; };
+		49E069BC2D20CCF200F81A3C /* falanka-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "falanka-db.wav"; sourceTree = "<group>"; };
+		49E069BD2D20CCF200F81A3C /* falanka-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "falanka-fe.wav"; sourceTree = "<group>"; };
+		49E069BE2D20CCF200F81A3C /* fiito-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "fiito-db.wav"; sourceTree = "<group>"; };
+		49E069BF2D20CCF200F81A3C /* fiito-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "fiito-jw.wav"; sourceTree = "<group>"; };
+		49E069C02D20CCF200F81A3C /* foosi-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "foosi-db.wav"; sourceTree = "<group>"; };
+		49E069C12D20CCF200F81A3C /* foosi-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "foosi-jw.wav"; sourceTree = "<group>"; };
+		49E069C22D20CCF200F81A3C /* hachonchoba-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hachonchoba-db.wav"; sourceTree = "<group>"; };
+		49E069C32D20CCF200F81A3C /* hachonchoba-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hachonchoba-jw.wav"; sourceTree = "<group>"; };
+		49E069C42D20CCF200F81A3C /* halki-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "halki-fe.wav"; sourceTree = "<group>"; };
+		49E069C52D20CCF200F81A3C /* hánnàali-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hánnàali-fe.wav"; sourceTree = "<group>"; };
+		49E069C62D20CCF200F81A3C /* hapi-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hapi-db.wav"; sourceTree = "<group>"; };
+		49E069C72D20CCF200F81A3C /* hapi-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hapi-jw.wav"; sourceTree = "<group>"; };
+		49E069C82D20CCF200F81A3C /* hapka-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hapka-fe.wav"; sourceTree = "<group>"; };
+		49E069C92D20CCF200F81A3C /* hissi-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hissi-fe.wav"; sourceTree = "<group>"; };
+		49E069CA2D20CCF200F81A3C /* hissi-lb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hissi-lb.wav"; sourceTree = "<group>"; };
+		49E069CB2D20CCF200F81A3C /* holpa-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "holpa-jw.wav"; sourceTree = "<group>"; };
+		49E069CC2D20CCF200F81A3C /* hompani-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hompani-jw.wav"; sourceTree = "<group>"; };
+		49E069CD2D20CCF200F81A3C /* hoopa-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hoopa-jw.wav"; sourceTree = "<group>"; };
+		49E069CE2D20CCF200F81A3C /* hopooni-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hopooni-db.wav"; sourceTree = "<group>"; };
+		49E069CF2D20CCF200F81A3C /* hopooni-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "hopooni-fe.wav"; sourceTree = "<group>"; };
+		49E069D02D20CCF200F81A3C /* ibisaani-lb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ibisaani-lb.wav"; sourceTree = "<group>"; };
+		49E069D12D20CCF200F81A3C /* icho-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "icho-db.wav"; sourceTree = "<group>"; };
+		49E069D22D20CCF200F81A3C /* icho-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "icho-fe.wav"; sourceTree = "<group>"; };
+		49E069D32D20CCF200F81A3C /* icho-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "icho-jw.wav"; sourceTree = "<group>"; };
+		49E069D42D20CCF200F81A3C /* ifa-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ifa-fe.wav"; sourceTree = "<group>"; };
+		49E069D52D20CCF200F81A3C /* iischoba-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "iischoba-fe.wav"; sourceTree = "<group>"; };
+		49E069D62D20CCF200F81A3C /* ilakomayli-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ilakomayli-db.wav"; sourceTree = "<group>"; };
+		49E069D72D20CCF200F81A3C /* ilbi-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ilbi-fe.wav"; sourceTree = "<group>"; };
+		49E069D82D20CCF200F81A3C /* imahaalochi-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "imahaalochi-fe.wav"; sourceTree = "<group>"; };
+		49E069D92D20CCF200F81A3C /* inkowàasa-lb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "inkowàasa-lb.wav"; sourceTree = "<group>"; };
+		49E069DA2D20CCF200F81A3C /* innaani-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "innaani-fe.wav"; sourceTree = "<group>"; };
+		49E069DB2D20CCF200F81A3C /* isilka-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "isilka-fe.wav"; sourceTree = "<group>"; };
+		49E069DC2D20CCF200F81A3C /* istinka-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "istinka-fe.wav"; sourceTree = "<group>"; };
+		49E069DD2D20CCF200F81A3C /* ittibi-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ittibi-db.wav"; sourceTree = "<group>"; };
+		49E069DE2D20CCF200F81A3C /* ittibi-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ittibi-fe.wav"; sourceTree = "<group>"; };
+		49E069DF2D20CCF200F81A3C /* ittòɬpa-lb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ittòɬpa-lb.wav"; sourceTree = "<group>"; };
+		49E069E02D20CCF200F81A3C /* kóosi-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "kóosi-fe.wav"; sourceTree = "<group>"; };
+		49E069E12D20CCF200F81A3C /* kowaachosi-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "kowaachosi-jw.wav"; sourceTree = "<group>"; };
+		49E069E22D20CCF200F81A3C /* maawayàali-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "maawayàali-db.wav"; sourceTree = "<group>"; };
+		49E069E32D20CCF200F81A3C /* mahli-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "mahli-jw.wav"; sourceTree = "<group>"; };
+		49E069E42D20CCF200F81A3C /* móosi-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "móosi-fe.wav"; sourceTree = "<group>"; };
+		49E069E52D20CCF200F81A3C /* naani-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "naani-fe.wav"; sourceTree = "<group>"; };
+		49E069E62D20CCF200F81A3C /* nampohchi-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "nampohchi-fe.wav"; sourceTree = "<group>"; };
+		49E069E72D20CCF200F81A3C /* nihtallo-lb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "nihtallo-lb.wav"; sourceTree = "<group>"; };
+		49E069E82D20CCF200F81A3C /* nita-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "nita-db.wav"; sourceTree = "<group>"; };
+		49E069E92D20CCF200F81A3C /* nita-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "nita-jw.wav"; sourceTree = "<group>"; };
+		49E069EA2D20CCF200F81A3C /* nochi-jb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "nochi-jb.wav"; sourceTree = "<group>"; };
+		49E069EB2D20CCF200F81A3C /* ontòklo-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ontòklo-fe.wav"; sourceTree = "<group>"; };
+		49E069EC2D20CCF200F81A3C /* ontótchìina-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ontótchìina-fe.wav"; sourceTree = "<group>"; };
+		49E069ED2D20CCF200F81A3C /* oofa-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "oofa-fe.wav"; sourceTree = "<group>"; };
+		49E069EE2D20CCF200F81A3C /* oofatta-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "oofatta-db.wav"; sourceTree = "<group>"; };
+		49E069EF2D20CCF200F81A3C /* oofatta-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "oofatta-jw.wav"; sourceTree = "<group>"; };
+		49E069F02D20CCF200F81A3C /* oolimpa-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "oolimpa-fe.wav"; sourceTree = "<group>"; };
+		49E069F12D20CCF200F81A3C /* oolimpa-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "oolimpa-jw.wav"; sourceTree = "<group>"; };
+		49E069F22D20CCF200F81A3C /* óstàaka-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "óstàaka-fe.wav"; sourceTree = "<group>"; };
+		49E069F32D20CCF200F81A3C /* oyba-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "oyba-fe.wav"; sourceTree = "<group>"; };
+		49E069F42D20CCF200F81A3C /* pìila-lb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "pìila-lb.wav"; sourceTree = "<group>"; };
+		49E069F52D20CCF200F81A3C /* pókkòoli-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "pókkòoli-fe.wav"; sourceTree = "<group>"; };
+		49E069F62D20CCF200F81A3C /* pokkotòoli-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "pokkotòoli-jw.wav"; sourceTree = "<group>"; };
+		49E069F72D20CCF200F81A3C /* sakba-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "sakba-fe.wav"; sourceTree = "<group>"; };
+		49E069F82D20CCF200F81A3C /* sobayli-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "sobayli-fe.wav"; sourceTree = "<group>"; };
+		49E069F92D20CCF200F81A3C /* sooka-lb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "sooka-lb.wav"; sourceTree = "<group>"; };
+		49E069FA2D20CCF200F81A3C /* táɬɬàapi-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "táɬɬàapi-fe.wav"; sourceTree = "<group>"; };
+		49E069FB2D20CCF200F81A3C /* tapassòola-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tapassòola-db.wav"; sourceTree = "<group>"; };
+		49E069FC2D20CCF200F81A3C /* tapassòola-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tapassòola-jw.wav"; sourceTree = "<group>"; };
+		49E069FD2D20CCF200F81A3C /* tayyi-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tayyi-fe.wav"; sourceTree = "<group>"; };
+		49E069FE2D20CCF200F81A3C /* tayyiha-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tayyiha-fe.wav"; sourceTree = "<group>"; };
+		49E069FF2D20CCF200F81A3C /* tikba-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tikba-fe.wav"; sourceTree = "<group>"; };
+		49E06A002D20CCF200F81A3C /* tòklo-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tòklo-fe.wav"; sourceTree = "<group>"; };
+		49E06A012D20CCF200F81A3C /* tótchìina-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tótchìina-fe.wav"; sourceTree = "<group>"; };
+		49E06A022D20CCF200F81A3C /* tótchìina-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "tótchìina-jw.wav"; sourceTree = "<group>"; };
+		49E06A032D20CCF200F81A3C /* waliichi-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "waliichi-db.wav"; sourceTree = "<group>"; };
+		49E06A042D20CCF200F81A3C /* waliichi-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "waliichi-fe.wav"; sourceTree = "<group>"; };
+		49E06A052D20CCF200F81A3C /* waliika-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "waliika-db.wav"; sourceTree = "<group>"; };
+		49E06A062D20CCF200F81A3C /* waliika-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "waliika-fe.wav"; sourceTree = "<group>"; };
+		49E06A072D20CCF200F81A3C /* waso-db.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "waso-db.wav"; sourceTree = "<group>"; };
+		49E06A082D20CCF200F81A3C /* waso-jw.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "waso-jw.wav"; sourceTree = "<group>"; };
+		49E06A092D20CCF200F81A3C /* wayàali-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "wayàali-fe.wav"; sourceTree = "<group>"; };
 		49EC06A92C0A93300088D3DD /* dict.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dict.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +311,7 @@
 		492E7B102BEB23B500F3A30E /* AlabamaDictionaryMobile */ = {
 			isa = PBXGroup;
 			children = (
+				49E06A0A2D20CCF200F81A3C /* audios */,
 				492E7B112BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift */,
 				49E068CC2D2078B600F81A3C /* EditorView.swift */,
 				492E7B132BEB23B500F3A30E /* ContentView.swift */,
@@ -135,6 +346,118 @@
 				492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */,
 			);
 			path = AlabamaDictionaryMobileUITests;
+			sourceTree = "<group>";
+		};
+		49E06A0A2D20CCF200F81A3C /* audios */ = {
+			isa = PBXGroup;
+			children = (
+				49E069A12D20CCF200F81A3C /* áapo-fe.wav */,
+				49E069A22D20CCF200F81A3C /* aasobohli-fe.wav */,
+				49E069A32D20CCF200F81A3C /* aatinka-fe.wav */,
+				49E069A42D20CCF200F81A3C /* aatipachoba-db.wav */,
+				49E069A52D20CCF200F81A3C /* aboska-fe.wav */,
+				49E069A62D20CCF200F81A3C /* achaapa-fe.wav */,
+				49E069A72D20CCF200F81A3C /* achihba-lb.wav */,
+				49E069A82D20CCF200F81A3C /* afaaka-db.wav */,
+				49E069A92D20CCF200F81A3C /* afaaka-fe.wav */,
+				49E069AA2D20CCF200F81A3C /* aissi-jw.wav */,
+				49E069AB2D20CCF200F81A3C /* akaaka-fe.wav */,
+				49E069AC2D20CCF200F81A3C /* akaakanaani-fe.wav */,
+				49E069AD2D20CCF200F81A3C /* alikchi-jw.wav */,
+				49E069AE2D20CCF200F81A3C /* alotka-fe.wav */,
+				49E069AF2D20CCF200F81A3C /* altoba-fe.wav */,
+				49E069B02D20CCF200F81A3C /* aɬíina-fe.wav */,
+				49E069B12D20CCF200F81A3C /* aɬɬa-fe.wav */,
+				49E069B22D20CCF200F81A3C /* awo-fe.wav */,
+				49E069B32D20CCF200F81A3C /* bitli-db.wav */,
+				49E069B42D20CCF200F81A3C /* bitli-fe.wav */,
+				49E069B52D20CCF200F81A3C /* cháffàaka-fe.wav */,
+				49E069B62D20CCF200F81A3C /* chákkàali-fe.wav */,
+				49E069B72D20CCF200F81A3C /* chichoba-db.wav */,
+				49E069B82D20CCF200F81A3C /* chiyahli-db.wav */,
+				49E069B92D20CCF200F81A3C /* chiyahli-fe.wav */,
+				49E069BA2D20CCF200F81A3C /* chofkoni-fe.wav */,
+				49E069BB2D20CCF200F81A3C /* choopa-lb.wav */,
+				49E069BC2D20CCF200F81A3C /* falanka-db.wav */,
+				49E069BD2D20CCF200F81A3C /* falanka-fe.wav */,
+				49E069BE2D20CCF200F81A3C /* fiito-db.wav */,
+				49E069BF2D20CCF200F81A3C /* fiito-jw.wav */,
+				49E069C02D20CCF200F81A3C /* foosi-db.wav */,
+				49E069C12D20CCF200F81A3C /* foosi-jw.wav */,
+				49E069C22D20CCF200F81A3C /* hachonchoba-db.wav */,
+				49E069C32D20CCF200F81A3C /* hachonchoba-jw.wav */,
+				49E069C42D20CCF200F81A3C /* halki-fe.wav */,
+				49E069C52D20CCF200F81A3C /* hánnàali-fe.wav */,
+				49E069C62D20CCF200F81A3C /* hapi-db.wav */,
+				49E069C72D20CCF200F81A3C /* hapi-jw.wav */,
+				49E069C82D20CCF200F81A3C /* hapka-fe.wav */,
+				49E069C92D20CCF200F81A3C /* hissi-fe.wav */,
+				49E069CA2D20CCF200F81A3C /* hissi-lb.wav */,
+				49E069CB2D20CCF200F81A3C /* holpa-jw.wav */,
+				49E069CC2D20CCF200F81A3C /* hompani-jw.wav */,
+				49E069CD2D20CCF200F81A3C /* hoopa-jw.wav */,
+				49E069CE2D20CCF200F81A3C /* hopooni-db.wav */,
+				49E069CF2D20CCF200F81A3C /* hopooni-fe.wav */,
+				49E069D02D20CCF200F81A3C /* ibisaani-lb.wav */,
+				49E069D12D20CCF200F81A3C /* icho-db.wav */,
+				49E069D22D20CCF200F81A3C /* icho-fe.wav */,
+				49E069D32D20CCF200F81A3C /* icho-jw.wav */,
+				49E069D42D20CCF200F81A3C /* ifa-fe.wav */,
+				49E069D52D20CCF200F81A3C /* iischoba-fe.wav */,
+				49E069D62D20CCF200F81A3C /* ilakomayli-db.wav */,
+				49E069D72D20CCF200F81A3C /* ilbi-fe.wav */,
+				49E069D82D20CCF200F81A3C /* imahaalochi-fe.wav */,
+				49E069D92D20CCF200F81A3C /* inkowàasa-lb.wav */,
+				49E069DA2D20CCF200F81A3C /* innaani-fe.wav */,
+				49E069DB2D20CCF200F81A3C /* isilka-fe.wav */,
+				49E069DC2D20CCF200F81A3C /* istinka-fe.wav */,
+				49E069DD2D20CCF200F81A3C /* ittibi-db.wav */,
+				49E069DE2D20CCF200F81A3C /* ittibi-fe.wav */,
+				49E069DF2D20CCF200F81A3C /* ittòɬpa-lb.wav */,
+				49E069E02D20CCF200F81A3C /* kóosi-fe.wav */,
+				49E069E12D20CCF200F81A3C /* kowaachosi-jw.wav */,
+				49E069E22D20CCF200F81A3C /* maawayàali-db.wav */,
+				49E069E32D20CCF200F81A3C /* mahli-jw.wav */,
+				49E069E42D20CCF200F81A3C /* móosi-fe.wav */,
+				49E069E52D20CCF200F81A3C /* naani-fe.wav */,
+				49E069E62D20CCF200F81A3C /* nampohchi-fe.wav */,
+				49E069E72D20CCF200F81A3C /* nihtallo-lb.wav */,
+				49E069E82D20CCF200F81A3C /* nita-db.wav */,
+				49E069E92D20CCF200F81A3C /* nita-jw.wav */,
+				49E069EA2D20CCF200F81A3C /* nochi-jb.wav */,
+				49E069EB2D20CCF200F81A3C /* ontòklo-fe.wav */,
+				49E069EC2D20CCF200F81A3C /* ontótchìina-fe.wav */,
+				49E069ED2D20CCF200F81A3C /* oofa-fe.wav */,
+				49E069EE2D20CCF200F81A3C /* oofatta-db.wav */,
+				49E069EF2D20CCF200F81A3C /* oofatta-jw.wav */,
+				49E069F02D20CCF200F81A3C /* oolimpa-fe.wav */,
+				49E069F12D20CCF200F81A3C /* oolimpa-jw.wav */,
+				49E069F22D20CCF200F81A3C /* óstàaka-fe.wav */,
+				49E069F32D20CCF200F81A3C /* oyba-fe.wav */,
+				49E069F42D20CCF200F81A3C /* pìila-lb.wav */,
+				49E069F52D20CCF200F81A3C /* pókkòoli-fe.wav */,
+				49E069F62D20CCF200F81A3C /* pokkotòoli-jw.wav */,
+				49E069F72D20CCF200F81A3C /* sakba-fe.wav */,
+				49E069F82D20CCF200F81A3C /* sobayli-fe.wav */,
+				49E069F92D20CCF200F81A3C /* sooka-lb.wav */,
+				49E069FA2D20CCF200F81A3C /* táɬɬàapi-fe.wav */,
+				49E069FB2D20CCF200F81A3C /* tapassòola-db.wav */,
+				49E069FC2D20CCF200F81A3C /* tapassòola-jw.wav */,
+				49E069FD2D20CCF200F81A3C /* tayyi-fe.wav */,
+				49E069FE2D20CCF200F81A3C /* tayyiha-fe.wav */,
+				49E069FF2D20CCF200F81A3C /* tikba-fe.wav */,
+				49E06A002D20CCF200F81A3C /* tòklo-fe.wav */,
+				49E06A012D20CCF200F81A3C /* tótchìina-fe.wav */,
+				49E06A022D20CCF200F81A3C /* tótchìina-jw.wav */,
+				49E06A032D20CCF200F81A3C /* waliichi-db.wav */,
+				49E06A042D20CCF200F81A3C /* waliichi-fe.wav */,
+				49E06A052D20CCF200F81A3C /* waliika-db.wav */,
+				49E06A062D20CCF200F81A3C /* waliika-fe.wav */,
+				49E06A072D20CCF200F81A3C /* waso-db.wav */,
+				49E06A082D20CCF200F81A3C /* waso-jw.wav */,
+				49E06A092D20CCF200F81A3C /* wayàali-fe.wav */,
+			);
+			path = audios;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +565,111 @@
 			buildActionMask = 2147483647;
 			files = (
 				492E7B1A2BEB23B600F3A30E /* Preview Assets.xcassets in Resources */,
+				49E06A0B2D20CCF200F81A3C /* áapo-fe.wav in Resources */,
+				49E06A0C2D20CCF200F81A3C /* iischoba-fe.wav in Resources */,
+				49E06A0D2D20CCF200F81A3C /* hánnàali-fe.wav in Resources */,
+				49E06A0E2D20CCF200F81A3C /* aasobohli-fe.wav in Resources */,
+				49E06A0F2D20CCF200F81A3C /* ittibi-db.wav in Resources */,
+				49E06A102D20CCF200F81A3C /* sooka-lb.wav in Resources */,
+				49E06A112D20CCF200F81A3C /* akaaka-fe.wav in Resources */,
+				49E06A122D20CCF200F81A3C /* oofatta-jw.wav in Resources */,
+				49E06A132D20CCF200F81A3C /* kowaachosi-jw.wav in Resources */,
+				49E06A142D20CCF200F81A3C /* alotka-fe.wav in Resources */,
+				49E06A152D20CCF200F81A3C /* hompani-jw.wav in Resources */,
+				49E06A162D20CCF200F81A3C /* hoopa-jw.wav in Resources */,
+				49E06A172D20CCF200F81A3C /* aissi-jw.wav in Resources */,
+				49E06A182D20CCF200F81A3C /* tótchìina-fe.wav in Resources */,
+				49E06A192D20CCF200F81A3C /* hissi-fe.wav in Resources */,
+				49E06A1A2D20CCF200F81A3C /* waliichi-fe.wav in Resources */,
+				49E06A1B2D20CCF200F81A3C /* chiyahli-fe.wav in Resources */,
+				49E06A1C2D20CCF200F81A3C /* pókkòoli-fe.wav in Resources */,
+				49E06A1D2D20CCF200F81A3C /* achihba-lb.wav in Resources */,
+				49E06A1E2D20CCF200F81A3C /* chákkàali-fe.wav in Resources */,
+				49E06A1F2D20CCF200F81A3C /* nochi-jb.wav in Resources */,
+				49E06A202D20CCF200F81A3C /* aatipachoba-db.wav in Resources */,
+				49E06A212D20CCF200F81A3C /* alikchi-jw.wav in Resources */,
+				49E06A222D20CCF200F81A3C /* hachonchoba-jw.wav in Resources */,
+				49E06A232D20CCF200F81A3C /* waliika-fe.wav in Resources */,
+				49E06A242D20CCF200F81A3C /* choopa-lb.wav in Resources */,
+				49E06A252D20CCF200F81A3C /* awo-fe.wav in Resources */,
+				49E06A262D20CCF200F81A3C /* ilakomayli-db.wav in Resources */,
+				49E06A272D20CCF200F81A3C /* hachonchoba-db.wav in Resources */,
+				49E06A282D20CCF200F81A3C /* foosi-db.wav in Resources */,
+				49E06A292D20CCF200F81A3C /* afaaka-fe.wav in Resources */,
+				49E06A2A2D20CCF200F81A3C /* hopooni-db.wav in Resources */,
+				49E06A2B2D20CCF200F81A3C /* altoba-fe.wav in Resources */,
+				49E06A2C2D20CCF200F81A3C /* hapi-db.wav in Resources */,
+				49E06A2D2D20CCF200F81A3C /* halki-fe.wav in Resources */,
+				49E06A2E2D20CCF200F81A3C /* aɬíina-fe.wav in Resources */,
+				49E06A2F2D20CCF200F81A3C /* bitli-db.wav in Resources */,
+				49E06A302D20CCF200F81A3C /* tikba-fe.wav in Resources */,
+				49E06A312D20CCF200F81A3C /* icho-db.wav in Resources */,
+				49E06A322D20CCF200F81A3C /* ontòklo-fe.wav in Resources */,
+				49E06A332D20CCF200F81A3C /* tótchìina-jw.wav in Resources */,
+				49E06A342D20CCF200F81A3C /* afaaka-db.wav in Resources */,
+				49E06A352D20CCF200F81A3C /* icho-jw.wav in Resources */,
+				49E06A362D20CCF200F81A3C /* óstàaka-fe.wav in Resources */,
+				49E06A372D20CCF200F81A3C /* aatinka-fe.wav in Resources */,
+				49E06A382D20CCF200F81A3C /* hapka-fe.wav in Resources */,
+				49E06A392D20CCF200F81A3C /* fiito-jw.wav in Resources */,
+				49E06A3A2D20CCF200F81A3C /* oolimpa-fe.wav in Resources */,
+				49E06A3B2D20CCF200F81A3C /* táɬɬàapi-fe.wav in Resources */,
+				49E06A3C2D20CCF200F81A3C /* waso-db.wav in Resources */,
+				49E06A3D2D20CCF200F81A3C /* wayàali-fe.wav in Resources */,
+				49E06A3E2D20CCF200F81A3C /* chofkoni-fe.wav in Resources */,
+				49E06A3F2D20CCF200F81A3C /* cháffàaka-fe.wav in Resources */,
+				49E06A402D20CCF200F81A3C /* naani-fe.wav in Resources */,
+				49E06A412D20CCF200F81A3C /* tayyi-fe.wav in Resources */,
+				49E06A422D20CCF200F81A3C /* tòklo-fe.wav in Resources */,
+				49E06A432D20CCF200F81A3C /* maawayàali-db.wav in Resources */,
+				49E06A442D20CCF200F81A3C /* foosi-jw.wav in Resources */,
+				49E06A452D20CCF200F81A3C /* isilka-fe.wav in Resources */,
+				49E06A462D20CCF200F81A3C /* oolimpa-jw.wav in Resources */,
+				49E06A472D20CCF200F81A3C /* ittibi-fe.wav in Resources */,
+				49E06A482D20CCF200F81A3C /* aboska-fe.wav in Resources */,
+				49E06A492D20CCF200F81A3C /* icho-fe.wav in Resources */,
+				49E06A4A2D20CCF200F81A3C /* chichoba-db.wav in Resources */,
+				49E06A4B2D20CCF200F81A3C /* sobayli-fe.wav in Resources */,
+				49E06A4C2D20CCF200F81A3C /* istinka-fe.wav in Resources */,
+				49E06A4D2D20CCF200F81A3C /* inkowàasa-lb.wav in Resources */,
+				49E06A4E2D20CCF200F81A3C /* oyba-fe.wav in Resources */,
+				49E06A4F2D20CCF200F81A3C /* tayyiha-fe.wav in Resources */,
+				49E06A502D20CCF200F81A3C /* waliichi-db.wav in Resources */,
+				49E06A512D20CCF200F81A3C /* nita-db.wav in Resources */,
+				49E06A522D20CCF200F81A3C /* tapassòola-db.wav in Resources */,
+				49E06A532D20CCF200F81A3C /* bitli-fe.wav in Resources */,
+				49E06A542D20CCF200F81A3C /* pìila-lb.wav in Resources */,
+				49E06A552D20CCF200F81A3C /* kóosi-fe.wav in Resources */,
+				49E06A562D20CCF200F81A3C /* pokkotòoli-jw.wav in Resources */,
+				49E06A572D20CCF200F81A3C /* aɬɬa-fe.wav in Resources */,
+				49E06A582D20CCF200F81A3C /* innaani-fe.wav in Resources */,
+				49E06A592D20CCF200F81A3C /* falanka-db.wav in Resources */,
+				49E06A5A2D20CCF200F81A3C /* ontótchìina-fe.wav in Resources */,
+				49E06A5B2D20CCF200F81A3C /* móosi-fe.wav in Resources */,
+				49E06A5C2D20CCF200F81A3C /* imahaalochi-fe.wav in Resources */,
+				49E06A5D2D20CCF200F81A3C /* hissi-lb.wav in Resources */,
+				49E06A5E2D20CCF200F81A3C /* fiito-db.wav in Resources */,
+				49E06A5F2D20CCF200F81A3C /* oofatta-db.wav in Resources */,
+				49E06A602D20CCF200F81A3C /* nita-jw.wav in Resources */,
+				49E06A612D20CCF200F81A3C /* nihtallo-lb.wav in Resources */,
+				49E06A622D20CCF200F81A3C /* hapi-jw.wav in Resources */,
+				49E06A632D20CCF200F81A3C /* mahli-jw.wav in Resources */,
+				49E06A642D20CCF200F81A3C /* ilbi-fe.wav in Resources */,
+				49E06A652D20CCF200F81A3C /* ifa-fe.wav in Resources */,
+				49E06A662D20CCF200F81A3C /* falanka-fe.wav in Resources */,
+				49E06A672D20CCF200F81A3C /* waliika-db.wav in Resources */,
+				49E06A682D20CCF200F81A3C /* ittòɬpa-lb.wav in Resources */,
+				49E06A692D20CCF200F81A3C /* nampohchi-fe.wav in Resources */,
+				49E06A6A2D20CCF200F81A3C /* oofa-fe.wav in Resources */,
+				49E06A6B2D20CCF200F81A3C /* hopooni-fe.wav in Resources */,
+				49E06A6C2D20CCF200F81A3C /* achaapa-fe.wav in Resources */,
+				49E06A6D2D20CCF200F81A3C /* holpa-jw.wav in Resources */,
+				49E06A6E2D20CCF200F81A3C /* tapassòola-jw.wav in Resources */,
+				49E06A6F2D20CCF200F81A3C /* sakba-fe.wav in Resources */,
+				49E06A702D20CCF200F81A3C /* ibisaani-lb.wav in Resources */,
+				49E06A712D20CCF200F81A3C /* akaakanaani-fe.wav in Resources */,
+				49E06A722D20CCF200F81A3C /* waso-jw.wav in Resources */,
+				49E06A732D20CCF200F81A3C /* chiyahli-db.wav in Resources */,
 				49EC06AA2C0A93300088D3DD /* dict.json in Resources */,
 				492E7B162BEB23B600F3A30E /* Assets.xcassets in Resources */,
 			);
