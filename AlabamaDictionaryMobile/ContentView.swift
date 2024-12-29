@@ -137,6 +137,9 @@ struct ContentView: View {
         if bShare > aShare { return false }
         if removeAccents(a.lemma.lowercased()) == string || a.definition.lowercased() == string { return true }
         if removeAccents(b.lemma.lowercased()) == string || b.definition.lowercased() == string { return false }
+        if (!a.lemma.contains(string) || !b.lemma.contains(string)) && mode == "default" {
+            return removeAccents(a.definition.lowercased()).localizedStandardCompare(removeAccents(b.definition.lowercased())) == .orderedAscending
+        }
         return removeAccents(a.lemma.lowercased()).localizedStandardCompare(removeAccents(b.lemma.lowercased())) == .orderedAscending
     }
 

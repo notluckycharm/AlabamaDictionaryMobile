@@ -19,7 +19,7 @@ struct EditorView: View {
                     .font(.title)
                     .bold()
                 if (entry.audio.count > 0) {
-                    Button(action: { playAudio(at: entry.audio[0]) }) {
+                    Button(action: { playAudio() }) {
                         Image(systemName: "speaker.fill")
                             .resizable()
                             .scaledToFit()
@@ -39,9 +39,11 @@ struct EditorView: View {
                             .padding(.vertical, 2)
                         }
             Spacer()
+        }.onAppear() {
+            createAudio(at: entry.audio[0])
         }
     }
-    func playAudio(at path: String) {
+    func createAudio(at path: String) {
         // Find the file URL in the app bundle
         guard let filePath = Bundle.main.url(forResource: "\(path)", withExtension: "wav")
         else {
@@ -51,6 +53,8 @@ struct EditorView: View {
         
         // Create and play the AVPlayer
         audioPlayer = AVPlayer(url: filePath)
+    }
+    func playAudio() {
         audioPlayer?.play()
     }
 
