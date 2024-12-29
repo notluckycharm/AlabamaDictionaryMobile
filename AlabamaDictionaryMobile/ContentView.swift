@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+struct Sentence: Codable, Identifiable {
+    let id = UUID()
+    let akz: String?
+    let en: String?
+
+    enum CodingKeys: String, CodingKey {
+        case akz = "alabama-example"
+        case en = "english-translation"
+    }
+}
+
 struct DictionaryEntry: Identifiable, Codable {
     var id: String { lemma }
     let lemma: String
@@ -17,9 +28,10 @@ struct DictionaryEntry: Identifiable, Codable {
     let notes: String?
     let relatedTerms: [String]?
     let audio: [String]
+    let sentences: [Sentence]
 
     enum CodingKeys: String, CodingKey {
-        case lemma, definition, wordClass = "class", principalPart, derivation, notes, relatedTerms, audio
+        case lemma, definition, wordClass = "class", principalPart, derivation, notes, relatedTerms, audio, sentences
     }
 }
 
@@ -122,6 +134,9 @@ struct ContentView: View {
             .replacingOccurrences(of: "ò", with: "o")
             .replacingOccurrences(of: "í", with: "i")
             .replacingOccurrences(of: "ì", with: "i")
+            .replacingOccurrences(of: "\u{2081}", with: "")
+            .replacingOccurrences(of: "\u{2082}", with: "")
+            .replacingOccurrences(of: "\u{2083}", with: "")
     }
 
     func reMatch(string: String, text: String) -> Bool {
@@ -203,7 +218,7 @@ struct SearchBarView: View {
                                     Button(action: clearInput) {
                                         Image(systemName: "xmark.circle")
                                             .foregroundColor(.gray)
-                                            .padding(.trailing, 20)
+                                            .padding(.trailing, 25)
                                     }
                                 }
                             }
@@ -273,7 +288,6 @@ struct ResultsNavigationView: View {
 
 struct ResultsView: View {
     @Binding var searchResults: [DictionaryEntry]
-
     var body: some View {
             ScrollView {
                 VStack(alignment: .leading) {
@@ -283,8 +297,8 @@ struct ResultsView: View {
                                 // Use NavigationLink to make the lemma clickable
                                 NavigationLink(destination: EditorView(entry: entry)) {
                                     Text(entry.lemma)
-                                        .font(.headline)
-                                        .textSelection(.enabled)
+                                            .font(.headline)
+                                            .textSelection(.enabled)
                                 }
                                 Spacer()
                                 if let wordClass = entry.wordClass, wordClass != "nan" {
