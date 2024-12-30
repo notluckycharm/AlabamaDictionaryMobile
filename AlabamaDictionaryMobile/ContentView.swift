@@ -313,7 +313,7 @@ struct ResultsView: View {
                                 .font(.system(size: 16))
                             if let principalPart = entry.principalPart, principalPart != "nan" {
                                 let parts = principalPart.split(separator: ", ").map { String($0) }
-                                let labels = ["first person plural", "second person plural", "third person plural"]
+                                let labels = ["second person singular", "first person plural", "second person plural"]
 
                                 ForEach(parts.indices, id: \.self) { index in
                                     if index < labels.count {
