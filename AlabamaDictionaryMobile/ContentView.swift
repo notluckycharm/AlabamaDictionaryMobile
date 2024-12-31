@@ -68,13 +68,15 @@ struct ContentView: View {
     @State private var shownMax: Int = 50
     @State private var mode: String = "default"
     @State private var allEntries: [DictionaryEntry] = []
-
+    
+    
     var body: some View {
         VStack{
             HeaderView()
             NavigationStack{
                 VStack(spacing: 0) {
                     SearchBarView(searchText: $searchText, mode: $mode, dictSort: dictSort, clearInput: clearInput)
+                    LimitView()
                     ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
                     ResultsView(searchResults: $searchResults)
                 }
@@ -191,6 +193,15 @@ struct HeaderView: View {
     }
 }
 
+struct LimitView: View{
+    var body: some View {
+        HStack(){
+            Spacer()
+            Text("Limit results to: ")
+            Spacer()
+        }.padding()
+    }
+}
 struct SearchBarView: View {
     @Binding var searchText: String
     @Binding var mode: String
