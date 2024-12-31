@@ -71,34 +71,41 @@ struct ContentView: View {
     
     
     var body: some View {
-        VStack{
-            HeaderView()
-            NavigationStack{
-                VStack(spacing: 0) {
-                    SearchBarView(searchText: $searchText, mode: $mode, dictSort: dictSort, clearInput: clearInput)
-                    LimitView()
-                    ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
-                    ResultsView(searchResults: $searchResults)
+        TabView{
+            VStack{
+                HeaderView()
+                NavigationStack{
+                    VStack(spacing: 0) {
+                        SearchBarView(searchText: $searchText, mode: $mode, dictSort: dictSort, clearInput: clearInput)
+                        ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
+                        ResultsView(searchResults: $searchResults)
+                    }
                 }
+                .padding()
+                .onAppear {
+                    let dictionaryData: DictionaryData = loadJSON("dict.json")
+                    allEntries = dictionaryData.words
+                    dictSort()
+                }
+            }.tabItem {
+                Label("Home", systemImage: "house.fill")
             }
-            .padding()
-            .onAppear {
-                let dictionaryData: DictionaryData = loadJSON("dict.json")
-                allEntries = dictionaryData.words
-                dictSort()
-            }
+            AboutView()
+                .tabItem {
+                    Label("About", systemImage: "info.circle.fill")
+                }
         }
     }
-
+    
     func clearInput() {
         searchText = ""
         shown = 0
         searchResults.removeAll()
     }
-
+    
     func dictSort() {
         let string = mode == "default" ? removeAccents(searchText.lowercased()) : searchText
-
+        
         var filteredEntries: [DictionaryEntry]
         if mode == "default" {
             filteredEntries = allEntries.filter { entry in
@@ -109,15 +116,15 @@ struct ContentView: View {
                 reMatch(string: string, text: entry.lemma)
             }
         }
-
+        
         filteredEntries.sort { a, b in
-            stateMachineSort(string: string, a: a, b: b)
+            return stateMachineSort(string: string, a: a, b: b)
         }
-
+        
         shownMax = filteredEntries.count
         searchResults = Array(filteredEntries[shown..<shown+min(50,shownMax-shown)])
     }
-
+    
     func updateResults(count: Int) {
         if shown + count < 0 {
             shown = 0
@@ -128,7 +135,7 @@ struct ContentView: View {
         }
         dictSort()
     }
-
+    
     func removeAccents(_ string: String) -> String {
         string.replacingOccurrences(of: "à", with: "a")
             .replacingOccurrences(of: "á", with: "a")
@@ -140,38 +147,74 @@ struct ContentView: View {
             .replacingOccurrences(of: "\u{2082}", with: "")
             .replacingOccurrences(of: "\u{2083}", with: "")
     }
-
+    
     func reMatch(string: String, text: String) -> Bool {
         let re = string.replacingOccurrences(of: "C", with: "[bcdfhklɬmnpstwy]")
             .replacingOccurrences(of: "V", with: "[aeoiáóéíàòìè]")
         return text.range(of: re, options: .regularExpression) != nil
     }
-
+    
     func stateMachineSort(string: String, a: DictionaryEntry, b: DictionaryEntry) -> Bool {
-        let aShare = initialShare(string: string, check: removeAccents(a.lemma.lowercased())).lem
-        let bShare = initialShare(string: string, check: removeAccents(b.lemma.lowercased())).lem
-        if aShare > bShare { return true }
-        if bShare > aShare { return false }
-        if removeAccents(a.lemma.lowercased()) == string || a.definition.lowercased() == string { return true }
-        if removeAccents(b.lemma.lowercased()) == string || b.definition.lowercased() == string { return false }
-        if (!a.lemma.contains(string) || !b.lemma.contains(string)) && mode == "default" {
-            return removeAccents(a.definition.lowercased()).localizedStandardCompare(removeAccents(b.definition.lowercased())) == .orderedAscending
+        let search = removeAccents(string.lowercased())
+        let aLemma = removeAccents(a.lemma.lowercased())
+        let bLemma = removeAccents(b.lemma.lowercased())
+        let aDefinition = removeAccents(a.definition.lowercased())
+        let bDefinition = removeAccents(b.definition.lowercased())
+        
+        // Prioritize exact matches (full word or definition)
+        if aLemma == search || aDefinition == search { return true }
+        if bLemma == search || bDefinition == search { return false }
+        
+        if aLemma.contains(search) || bLemma.contains(search) {
+            // If both have prefix matches, compare by prefix length
+            let aPrefixLength = longestCommonPrefixLength(search, aLemma)
+            let bPrefixLength = longestCommonPrefixLength(search, bLemma)
+
+            if aPrefixLength > bPrefixLength { return true }
+            if bPrefixLength > aPrefixLength { return false }
+            
+            let aContains = isValidSubstringMatch(aLemma, search)
+                let bContains = isValidSubstringMatch(bLemma, search)
+
+                if aContains && !bContains { return true }
+                if bContains && !aContains { return false }
         }
-        return removeAccents(a.lemma.lowercased()).localizedStandardCompare(removeAccents(b.lemma.lowercased())) == .orderedAscending
+        else {
+            // If both have prefix matches, compare by prefix length
+            let aPrefixLength = longestCommonPrefixLength(search, aDefinition)
+            let bPrefixLength = longestCommonPrefixLength(search, bDefinition)
+
+            if aPrefixLength > bPrefixLength { return true }
+            if bPrefixLength > aPrefixLength { return false }
+            
+            let aContains = isValidSubstringMatch(aDefinition, search)
+                let bContains = isValidSubstringMatch(bDefinition, search)
+
+                if aContains && !bContains { return true }
+                if bContains && !aContains { return false }
+        }
+
+    // Substring matches: Only apply if no prefixes are found
+
+        // Final fallback: lexicographical order
+        return aLemma.localizedStandardCompare(bLemma) == .orderedAscending
     }
 
-    func initialShare(string: String, check: String) -> (lem: Int, def: Int) {
-        var lemShared = 0
-        var defShared = 0
-        for i in 0...string.count {
-            if check.prefix(string.count - i) == string.prefix(string.count - i) {
-                lemShared = string.count - i
-            }
-            if check.prefix(string.count - i) == string.prefix(string.count - i) {
-                defShared = string.count - i
+    func isValidSubstringMatch(_ lemma: String, _ search: String) -> Bool {
+        let regex = "\\b\(NSRegularExpression.escapedPattern(for: search))\\b"
+        let matches = lemma.range(of: regex, options: .regularExpression)
+        return matches != nil
+    }
+    
+    // Helper function to compute the length of the longest common prefix
+    func longestCommonPrefixLength(_ s1: String, _ s2: String) -> Int {
+        let minLength = min(s1.count, s2.count)
+        for i in 0..<minLength {
+            if s1[s1.index(s1.startIndex, offsetBy: i)] != s2[s2.index(s2.startIndex, offsetBy: i)] {
+                return i
             }
         }
-        return (lemShared, defShared)
+        return minLength
     }
 }
 
@@ -202,6 +245,7 @@ struct LimitView: View{
         }.padding()
     }
 }
+
 struct SearchBarView: View {
     @Binding var searchText: String
     @Binding var mode: String

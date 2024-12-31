@@ -13,19 +13,13 @@ struct EditorView: View {
     @State private var audioPlayer: AVPlayer? = nil
     @State private var fontSize: CGFloat = 18
     @State private var showOverlay = false
+    
     var body: some View {
-        ZStack(alignment: .top){
-            if showOverlay {
-                VStack{
-                    TextModifyView(fontSize: $fontSize)
-                        .frame(maxWidth: .infinity)
-                        .background(.white)
-                        .cornerRadius(12)
-                        .shadow(radius: 2)
-                        .padding()
-                        .transition(.move(edge: .top))
-                }.zIndex(1)
-            }
+        let dictionaryData: DictionaryData = loadJSON("dict.json")
+        let negatives = dictionaryData.words.filter{ a in
+            a.definition == "Negative form of \(entry.lemma)"
+        }
+        ScrollView{
             VStack{
                 HStack{
                     Text(entry.lemma)
@@ -33,7 +27,7 @@ struct EditorView: View {
                         .bold()
                     if (entry.audio.count > 0) {
                         Button(action: { playAudio(at: entry.audio[0]) }) {
-                            Image(systemName: "speaker.fill")
+                            Image(systemName: "speaker.wave.3")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 25, height: 25) // Adjust size as needed
@@ -42,6 +36,24 @@ struct EditorView: View {
                     }
                 }
                 VStack{
+                    if (entry.definition.prefix(3) == "to ") {
+                        HStack{
+                            Text("Negative: ").italic()
+                            if (negatives.count > 0) {
+                                ForEach(negatives) { negative in
+                                    if let lastNeg = negatives.last, negative.lemma == lastNeg.lemma {
+                                        Text("\(negative.lemma)")
+                                    }
+                                    else {
+                                        Text("\(negative.lemma), ").bold()
+                                    }
+                                }
+                            }
+                            else {
+                                Text("-")
+                            }
+                        }
+                    }
                     let defs: [String] = entry.definition.components(separatedBy: ";");
                     ForEach(Array(defs.enumerated()), id: \.element) { index, def in
                         HStack{
@@ -92,6 +104,52 @@ struct EditorView: View {
                             Spacer()
                         }
                     }
+                    if (entry.principalPart != "nan") {
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.gray) // Solid gray background
+                                .frame(height: 40) // Adjust height as needed
+                            
+                            HStack{
+                                Text("Inflectional Stems")
+                                    .foregroundColor(.white) // Text color
+                                    .font(.headline) // Font style
+                            }
+                        }
+                        let pPs = entry.principalPart?.split(separator: ", ")
+                        VStack(spacing:0){
+                            HStack{
+                                Text("First person singular").italic()
+                                Spacer()
+                                Text("\(entry.lemma)li")
+                            }
+                            HStack{
+                                Text("Second person singular").italic()
+                                Spacer()
+                                Text(pPs?.first.map(String.init) ?? "-")
+                            }
+                            HStack{
+                                Text("Third person singular").italic()
+                                Spacer()
+                                Text(entry.lemma)
+                            }
+                            HStack {
+                                Text("First person plural").italic()
+                                Spacer()
+                                Text((pPs?.indices.contains(1) == true ? String(pPs![1]) : "-"))
+                            }
+                            HStack{
+                                Text("Second person plural").italic()
+                                Spacer()
+                                Text(pPs?.last.map(String.init) ?? "-")
+                            }
+                            HStack{
+                                Text("Third person plural").italic()
+                                Spacer()
+                                Text("ho\(entry.lemma)")
+                            }
+                        }
+                    }
                     Spacer()
                 }.environment(\.font, .system(size: fontSize))
             }.toolbar {
@@ -103,6 +161,14 @@ struct EditorView: View {
                     }) {
                         Image(systemName: "textformat.size")
                             .foregroundColor(.gray)
+                    }.popover(isPresented: $showOverlay, arrowEdge: .top) {
+                        if #available(iOS 16.4, *) {
+                            TextModifyView(fontSize: $fontSize)
+                                .frame(maxWidth: 600, maxHeight: 300)
+                                .presentationCompactAdaptation(.none)
+                        } else {
+                            // Fallback on earlier versions
+                        }
                     }
                 }
             }
