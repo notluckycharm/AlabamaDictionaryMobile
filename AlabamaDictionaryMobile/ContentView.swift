@@ -66,34 +66,41 @@ struct ContentView: View {
     @State private var searchResults: [DictionaryEntry] = []
     @State private var shown: Int = 0
     @State private var shownMax: Int = 50
-    @State private var mode: String = "default"
+    @State private var reMode: Bool = false
     @State private var allEntries: [DictionaryEntry] = []
-    
+    @State var presentSideMenu: Bool = false
+    @State private var limitAudio: Bool = false
     
     var body: some View {
-        TabView{
-            VStack{
-                HeaderView()
-                NavigationStack{
-                    VStack(spacing: 0) {
-                        SearchBarView(searchText: $searchText, mode: $mode, dictSort: dictSort, clearInput: clearInput)
-                        ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
-                        ResultsView(searchResults: $searchResults)
+        ZStack{
+            TabView{
+                VStack{
+                    HeaderView()
+                    NavigationStack{
+                        VStack(spacing: 0) {
+                            SearchBarView(searchText: $searchText, reMode: $reMode, dictSort: dictSort, clearInput: clearInput, presentSideMenu: $presentSideMenu)
+                            ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
+                            ResultsView(searchResults: $searchResults)
+                        }
                     }
+                    .padding()
+                    .onAppear {
+                        let dictionaryData: DictionaryData = loadJSON("dict.json")
+                        allEntries = dictionaryData.words
+                        dictSort()
+                    }
+                    
+                    
+                }.tabItem {
+                    Label("Home", systemImage: "house.fill")
                 }
-                .padding()
-                .onAppear {
-                    let dictionaryData: DictionaryData = loadJSON("dict.json")
-                    allEntries = dictionaryData.words
-                    dictSort()
-                }
-            }.tabItem {
-                Label("Home", systemImage: "house.fill")
+                AboutView()
+                    .tabItem {
+                        Label("About", systemImage: "info.circle.fill")
+                    }
             }
-            AboutView()
-                .tabItem {
-                    Label("About", systemImage: "info.circle.fill")
-                }
+            SettingsView(isShowing: $presentSideMenu, reMode: $reMode, limitAudio: $limitAudio)
+                .zIndex(1)
         }
     }
     
@@ -103,13 +110,21 @@ struct ContentView: View {
         searchResults.removeAll()
     }
     
+    func stripped(string: String) -> String {
+        return string.replacingOccurrences(of: "#english", with: "")
+                     .replacingOccurrences(of: "#en", with: "")
+                     .replacingOccurrences(of: " ", with: "")
+                     .replacingOccurrences(of: "#akz", with: "")
+                     .replacingOccurrences(of: "#alabama", with: "")
+    }
+    
     func dictSort() {
-        let string = mode == "default" ? removeAccents(searchText.lowercased()) : searchText
+        let string = !reMode ? removeAccents(searchText.lowercased()) : searchText
         
         var filteredEntries: [DictionaryEntry]
-        if mode == "default" {
+        if !reMode {
             filteredEntries = allEntries.filter { entry in
-                removeAccents(entry.lemma.lowercased()).contains(string) || entry.definition.lowercased().contains(string)
+                removeAccents(stripped(string: entry.lemma.lowercased())).contains(stripped(string: string)) || stripped(string: entry.definition.lowercased()).contains(stripped(string: string))
             }
         } else {
             filteredEntries = allEntries.filter { entry in
@@ -117,10 +132,16 @@ struct ContentView: View {
             }
         }
         
+        if limitAudio {
+            filteredEntries = filteredEntries.filter { entry in
+                entry.audio.count > 0
+            }
+        }
+        
         filteredEntries.sort { a, b in
             return stateMachineSort(string: string, a: a, b: b)
         }
-        
+                
         shownMax = filteredEntries.count
         searchResults = Array(filteredEntries[shown..<shown+min(50,shownMax-shown)])
     }
@@ -154,6 +175,24 @@ struct ContentView: View {
         return text.range(of: re, options: .regularExpression) != nil
     }
     
+    func longestPrefixofTwoStrs(search: String, a: String, b: String) -> Bool {
+        let aPrefixLength = longestCommonPrefixLength(search, a)
+        let bPrefixLength = longestCommonPrefixLength(search, b)
+
+        if aPrefixLength > bPrefixLength { return true }
+        if bPrefixLength > aPrefixLength { return false }
+        
+        let aContains = isValidSubstringMatch(a, search)
+        let bContains = isValidSubstringMatch(b, search)
+
+        if aContains && !bContains { return true }
+        if bContains && !aContains { return false }
+        
+        else {
+            return a.localizedStandardCompare(b) == .orderedAscending
+        }
+    }
+    
     func stateMachineSort(string: String, a: DictionaryEntry, b: DictionaryEntry) -> Bool {
         let search = removeAccents(string.lowercased())
         let aLemma = removeAccents(a.lemma.lowercased())
@@ -165,39 +204,21 @@ struct ContentView: View {
         if aLemma == search || aDefinition == search { return true }
         if bLemma == search || bDefinition == search { return false }
         
+        if search.contains("#en") {
+            return longestPrefixofTwoStrs(search: search.replacingOccurrences(of: "#english", with: "").replacingOccurrences(of: "#en", with: ""), a: aDefinition, b: bDefinition)
+        }
+        else if search.contains("#akz") || search.contains("#alabama") {
+            return longestPrefixofTwoStrs(search: search.replacingOccurrences(of: "#alabama", with: "").replacingOccurrences(of: "#akz", with: ""), a: aLemma, b: bLemma)
+        }
+        
         if aLemma.contains(search) || bLemma.contains(search) {
             // If both have prefix matches, compare by prefix length
-            let aPrefixLength = longestCommonPrefixLength(search, aLemma)
-            let bPrefixLength = longestCommonPrefixLength(search, bLemma)
-
-            if aPrefixLength > bPrefixLength { return true }
-            if bPrefixLength > aPrefixLength { return false }
-            
-            let aContains = isValidSubstringMatch(aLemma, search)
-                let bContains = isValidSubstringMatch(bLemma, search)
-
-                if aContains && !bContains { return true }
-                if bContains && !aContains { return false }
+            return longestPrefixofTwoStrs(search: search, a: aLemma, b: bLemma)
         }
         else {
             // If both have prefix matches, compare by prefix length
-            let aPrefixLength = longestCommonPrefixLength(search, aDefinition)
-            let bPrefixLength = longestCommonPrefixLength(search, bDefinition)
-
-            if aPrefixLength > bPrefixLength { return true }
-            if bPrefixLength > aPrefixLength { return false }
-            
-            let aContains = isValidSubstringMatch(aDefinition, search)
-                let bContains = isValidSubstringMatch(bDefinition, search)
-
-                if aContains && !bContains { return true }
-                if bContains && !aContains { return false }
+            return longestPrefixofTwoStrs(search: search, a: aDefinition, b: bDefinition)
         }
-
-    // Substring matches: Only apply if no prefixes are found
-
-        // Final fallback: lexicographical order
-        return aLemma.localizedStandardCompare(bLemma) == .orderedAscending
     }
 
     func isValidSubstringMatch(_ lemma: String, _ search: String) -> Bool {
@@ -248,15 +269,19 @@ struct LimitView: View{
 
 struct SearchBarView: View {
     @Binding var searchText: String
-    @Binding var mode: String
+    @Binding var reMode: Bool
     var dictSort: () -> Void
     var clearInput: () -> Void
+    @Binding var presentSideMenu: Bool
     let characters = ["ɬ", "á", "à", "ó", "ò", "í", "ì", "ⁿ"]
     var body: some View {
         VStack(spacing: 0){
             HStack(spacing: -10) {
                 ZStack {
-                    TextField("Search in Alabama or English", text: $searchText, onEditingChanged: { _ in dictSort() })
+                    TextField("Search in Alabama or English", text: $searchText)
+                        .onSubmit {
+                            dictSort() // Run dictSort() when the user presses Return
+                        }
                         .frame(height: 48)
                         .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
                                         .cornerRadius(5)
@@ -279,12 +304,11 @@ struct SearchBarView: View {
                             }
                         )
                 }
-                Button(action: { useRE() }) {
-                    Text("[.*]")
-                        .padding()
-                        .background(mode == "default" ? Color.white : Color.blue)
-                        .foregroundStyle(mode == "default" ? Color.blue : Color.white)
-                        .cornerRadius(10)
+                Button(action: { presentSideMenu.toggle() }) {
+                    Image(systemName: "gearshape.fill")
+                        .foregroundColor(.gray)
+                        .imageScale(.large)
+                        .padding(.trailing, 25)
                 }
             }
             HStack(spacing: 0) {
@@ -307,11 +331,7 @@ struct SearchBarView: View {
     }
 
     func useRE() {
-        if mode == "default" {
-            mode = "re"
-        } else {
-            mode = "default"
-        }
+        reMode.toggle()
         if searchText != "" {
             dictSort()
         }
@@ -343,6 +363,7 @@ struct ResultsNavigationView: View {
 
 struct ResultsView: View {
     @Binding var searchResults: [DictionaryEntry]
+    
     var body: some View {
             ScrollView {
                 VStack(alignment: .leading) {

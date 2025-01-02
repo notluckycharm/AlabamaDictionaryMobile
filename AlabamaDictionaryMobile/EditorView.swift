@@ -14,6 +14,31 @@ struct EditorView: View {
     @State private var fontSize: CGFloat = 18
     @State private var showOverlay = false
     
+    private var appl: String {
+        var appl = "m"
+        if let first = entry.lemma.first, ["m", "n", "l", "y", "w"].contains(first) {
+                appl = String(first)
+            }
+        else if let first = entry.lemma.first, ["h", "s", "ɬ"].contains(first) {
+            appl = "ⁿ"
+        }
+        return appl
+        }
+    
+    private var nounForms: [String] {
+        if let first = entry.lemma.first {
+            if first == "i" || first == "o" {
+                let stem = String(entry.lemma.dropFirst())
+                return ["cha\(stem)", "chi\(stem)", entry.lemma, "ko\(stem)", "hachi\(stem)"]
+            }
+            else if first == "a" {
+                let stem = String(entry.lemma.dropFirst())
+                return ["acha\(stem)", "achi\(stem)", entry.lemma, "ako\(stem)", "ahachi\(stem)"]
+            }
+        }
+        return ["cha\(entry.lemma)", "chi\(entry.lemma)", entry.lemma, "ko\(entry.lemma)", "hachi\(entry.lemma)"]
+    }
+    
     var body: some View {
         let dictionaryData: DictionaryData = loadJSON("dict.json")
         let negatives = dictionaryData.words.filter{ a in
@@ -118,57 +143,109 @@ struct EditorView: View {
                         }
                         let pPs = entry.principalPart?.split(separator: ", ")
                         VStack(spacing:0){
-                            HStack{
-                                Text("First person singular").italic()
-                                Spacer()
-                                Text("\(entry.lemma)li")
+                                HStack{
+                                    Text("\(entry.lemma)li")
+                                    Spacer()
+                                    Text("First person singular").italic()
+                                }
+                                HStack{
+                                    Text(pPs?.first.map(String.init) ?? "-")
+                                    Spacer()
+                                    Text("Second person singular").italic()
+                                }
+                                HStack{
+                                    Text(entry.lemma)
+                                    Spacer()
+                                    Text("Third person singular").italic()
+                                }
+                                HStack {
+                                    Text((pPs?.indices.contains(1) == true ? String(pPs![1]) : "-"))
+                                    Spacer()
+                                    Text("First person plural").italic()
+                                }
+                                HStack{
+                                    Text(pPs?.last.map(String.init) ?? "-")
+                                    Spacer()
+                                    Text("Second person plural").italic()
+                                }
+                                HStack{
+                                    Text("ho\(entry.lemma)")
+                                    Spacer()
+                                    Text("Third person plural").italic()
+                                }
                             }
+                    }
+                    else if (entry.wordClass == "AM-p") {
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.gray) // Solid gray background
+                                .frame(height: 40) // Adjust height as needed
+                            
                             HStack{
-                                Text("Second person singular").italic()
-                                Spacer()
-                                Text(pPs?.first.map(String.init) ?? "-")
+                                Text("Possessive Forms")
+                                    .foregroundColor(.white) // Text color
+                                    .font(.headline) // Font style
                             }
+                        }
+                        VStack(spacing: 0) {
+                            let defCut = entry.definition.split(separator: ",").map(String.init)
+                            let prefixes = ["My", "Your", "Her/his/their", "Our", "Y'all's"]
+                            let akzPrefixes = ["a", "chi", "i", "ko", "hachi"]
+                            ForEach(Array(zip(prefixes, akzPrefixes)), id: \.0) { (prefix, akzPrefix) in
+                                HStack {
+                                    Text("\(akzPrefix)\(appl)\(entry.lemma)")
+                                    Spacer()
+                                    Text("\(prefix) \(defCut.first ?? entry.definition)")
+                                }
+                            }
+                        }
+                    }
+                    else if (entry.wordClass == "CHA-" && entry.definition.prefix(3) != "to ") {
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.gray) // Solid gray background
+                                .frame(height: 40) // Adjust height as needed
+                            
                             HStack{
-                                Text("Third person singular").italic()
-                                Spacer()
-                                Text(entry.lemma)
+                                Text("Possessive Forms")
+                                    .foregroundColor(.white) // Text color
+                                    .font(.headline) // Font style
                             }
-                            HStack {
-                                Text("First person plural").italic()
-                                Spacer()
-                                Text((pPs?.indices.contains(1) == true ? String(pPs![1]) : "-"))
-                            }
-                            HStack{
-                                Text("Second person plural").italic()
-                                Spacer()
-                                Text(pPs?.last.map(String.init) ?? "-")
-                            }
-                            HStack{
-                                Text("Third person plural").italic()
-                                Spacer()
-                                Text("ho\(entry.lemma)")
+                        }
+                        VStack(spacing: 0) {
+                            let defCut = entry.definition
+                                .split(separator: ",")          // Split by commas
+                                .flatMap { $0.split(separator: ";") }  // Split each resulting string by semicolons
+                                .map(String.init) 
+                            let prefixes = ["My", "Your", "Her/his/their", "Our", "Y'all's"]
+                            ForEach(Array(zip(prefixes, nounForms)), id: \.0) { (prefix, akzPrefix) in
+                                HStack {
+                                    Text("\(akzPrefix)")
+                                    Spacer()
+                                    Text("\(prefix) \(defCut.first ?? entry.definition)")
+                                }
                             }
                         }
                     }
                     Spacer()
                 }.environment(\.font, .system(size: fontSize))
-            }.toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        withAnimation {
-                            showOverlay.toggle()
-                        }
-                    }) {
-                        Image(systemName: "textformat.size")
-                            .foregroundColor(.gray)
-                    }.popover(isPresented: $showOverlay, arrowEdge: .top) {
-                        if #available(iOS 16.4, *) {
-                            TextModifyView(fontSize: $fontSize)
-                                .frame(maxWidth: 600, maxHeight: 300)
-                                .presentationCompactAdaptation(.none)
-                        } else {
-                            // Fallback on earlier versions
-                        }
+            }
+        }.toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    withAnimation {
+                        showOverlay.toggle()
+                    }
+                }) {
+                    Image(systemName: "textformat.size")
+                        .foregroundColor(.gray)
+                }.popover(isPresented: $showOverlay, arrowEdge: .top) {
+                    if #available(iOS 16.4, *) {
+                        TextModifyView(fontSize: $fontSize)
+                            .frame(maxWidth: 600, maxHeight: 300)
+                            .presentationCompactAdaptation(.none)
+                    } else {
+                        // Fallback on earlier versions
                     }
                 }
             }

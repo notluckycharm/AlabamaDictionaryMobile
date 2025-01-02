@@ -22667,10 +22667,10 @@
         {
             "lemma": "okla",
             "definition": "friend",
-            "class": "nan",
+            "class": "AM-p",
             "principalPart": "nan",
             "derivation": "nan",
-            "notes": "nan",
+            "notes": "Word class collect by WOLF lab, January 2025",
             "sentences": [],
             "relatedTerms": [],
             "audio": []
@@ -30399,7 +30399,7 @@
             "audio": []
         },
         {
-            "lemma": "naani",
+            "lemma": "naani\u2081",
             "definition": "man, male;nonbearing fruit tree;to be mannish, act like a man (of a woman), be a tomboy (of a girl)",
             "class": "nan",
             "principalPart": "nan",
@@ -120700,12 +120700,12 @@
             "audio": []
         },
         {
-            "lemma": "innaani",
+            "lemma": "naani\u2082",
             "definition": "husband",
             "class": "AM-p",
             "principalPart": "nan",
             "derivation": "[im- /naani]",
-            "notes": "nan",
+            "notes": "Original Transcription (Sylestine et. al, 1993): innaani",
             "sentences": [
                 {
                     "alabama-example": "Innaani innakaɬtoha.",
