@@ -15,7 +15,7 @@ struct AboutView: View {
                     Image("Alabama-Coushata")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 60, height: 60)
+                        .frame(width: 75, height: 75)
                     
                     Text("Dictionary of the Alabama Language").font(.system(size: 25)).bold()
                 }

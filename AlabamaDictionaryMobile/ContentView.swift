@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Sentence: Codable, Identifiable {
+struct Sentence: Codable, Identifiable, Equatable {
     let id = UUID()
     let akz: String?
     let en: String?
@@ -16,29 +16,65 @@ struct Sentence: Codable, Identifiable {
         case akz = "alabama-example"
         case en = "english-translation"
     }
+    
+    static func == (lhs: Sentence, rhs: Sentence) -> Bool {
+            lhs.id == rhs.id &&
+            lhs.akz == rhs.akz &&
+            lhs.en == rhs.en
+        }
 }
 
-struct DictionaryEntry: Identifiable, Codable {
+struct Definition: Codable, Identifiable, Equatable {
+    let id = UUID()
+    let wordClass: String
+    let definition: String
+
+    enum CodingKeys: String, CodingKey {
+        case wordClass = "class"
+        case definition = "def"
+    }
+    
+    static func == (lhs: Definition, rhs: Definition) -> Bool {
+            lhs.id == rhs.id &&
+            lhs.wordClass == rhs.wordClass &&
+            lhs.definition == rhs.definition
+        }
+}
+
+struct DictionaryEntry: Identifiable, Codable, Equatable {
     var id: String { lemma }
     let lemma: String
-    let definition: String
+    let definition: [Definition]
     let wordClass: String?
     let principalPart: String?
     let derivation: String?
     let notes: String?
-    let relatedTerms: [String]?
+    let relatedTerms: [String]
     let audio: [String]
     let sentences: [Sentence]
 
     enum CodingKeys: String, CodingKey {
         case lemma, definition, wordClass = "class", principalPart, derivation, notes, relatedTerms, audio, sentences
     }
+    
+    static func == (lhs: DictionaryEntry, rhs: DictionaryEntry) -> Bool {
+            lhs.id == rhs.id &&
+            lhs.lemma == rhs.lemma &&
+            lhs.definition == rhs.definition &&
+            lhs.wordClass == rhs.wordClass &&
+            lhs.principalPart == rhs.principalPart &&
+            lhs.derivation == rhs.derivation &&
+            lhs.notes == rhs.notes &&
+            lhs.relatedTerms == rhs.relatedTerms &&
+            lhs.audio == rhs.audio &&
+            lhs.sentences == rhs.sentences
+        }
 }
+
 
 struct DictionaryData: Codable {
     let words: [DictionaryEntry]
 }
-
 
 func loadJSON<T: Decodable>(_ filename: String, as type: T.Type = T.self) -> T {
     let data: Data
@@ -70,7 +106,9 @@ struct ContentView: View {
     @State private var allEntries: [DictionaryEntry] = []
     @State var presentSideMenu: Bool = false
     @State private var limitAudio: Bool = false
-    
+    @State private var loadedResults: [DictionaryEntry] = []
+    @State private var isLoading: Bool = false
+
     var body: some View {
         ZStack{
             TabView{
@@ -80,14 +118,17 @@ struct ContentView: View {
                         VStack(spacing: 0) {
                             SearchBarView(searchText: $searchText, reMode: $reMode, dictSort: dictSort, clearInput: clearInput, presentSideMenu: $presentSideMenu)
                             ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
-                            ResultsView(searchResults: $searchResults)
+                            ResultsView(searchResults: $loadedResults, shown: $shown, shownMax: $shownMax)
                         }
                     }
                     .padding()
                     .onAppear {
-                        let dictionaryData: DictionaryData = loadJSON("dict.json")
-                        allEntries = dictionaryData.words
-                        dictSort()
+                        DispatchQueue.global(qos: .background).async {
+                            let dictionaryData: DictionaryData = loadJSON("dict.json")
+                            DispatchQueue.main.async {
+                                allEntries = dictionaryData.words
+                            }
+                        }
                     }
                     
                     
@@ -98,7 +139,18 @@ struct ContentView: View {
                     .tabItem {
                         Label("About", systemImage: "info.circle.fill")
                     }
-            }
+                FlashCardsView().tabItem {
+                    Label("Favorites", systemImage: "bookmark.fill")
+                }
+            }.environment(\.horizontalSizeClass, .compact)
+            if isLoading {
+                        Color.black.opacity(0.5) // Semi-transparent overlay
+                            .edgesIgnoringSafeArea(.all)
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .scaleEffect(2)
+                            .padding()
+                    }
             SettingsView(isShowing: $presentSideMenu, reMode: $reMode, limitAudio: $limitAudio)
                 .zIndex(1)
         }
@@ -113,37 +165,124 @@ struct ContentView: View {
     func stripped(string: String) -> String {
         return string.replacingOccurrences(of: "#english", with: "")
                      .replacingOccurrences(of: "#en", with: "")
-                     .replacingOccurrences(of: " ", with: "")
                      .replacingOccurrences(of: "#akz", with: "")
                      .replacingOccurrences(of: "#alabama", with: "")
+                     .replacingOccurrences(of: "#noun", with: "")
+                     .replacingOccurrences(of: "#verb", with: "")
+                     .replacingOccurrences(of: "#am-p", with: "")
+                     .replacingOccurrences(of: "#LI", with: "")
+                     .replacingOccurrences(of: "#CHA", with: "")
+                     .replacingOccurrences(of: "#AM", with: "")
+                     .replacingOccurrences(of: "#transitive", with: "")
+                     .replacingOccurrences(of: "#affix", with: "")
+                     .trimmingCharacters(in: .whitespaces)
     }
     
     func dictSort() {
         let string = !reMode ? removeAccents(searchText.lowercased()) : searchText
-        
-        var filteredEntries: [DictionaryEntry]
-        if !reMode {
-            filteredEntries = allEntries.filter { entry in
-                removeAccents(stripped(string: entry.lemma.lowercased())).contains(stripped(string: string)) || stripped(string: entry.definition.lowercased()).contains(stripped(string: string))
+        let strippedSearchText = stripped(string: string)
+        DispatchQueue.global(qos: .userInitiated).async {
+            isLoading = true
+            var filteredEntries: [DictionaryEntry]
+            if !reMode {
+                filteredEntries = allEntries.filter { entry in
+                    removeAccents(stripped(string: entry.lemma.lowercased())).contains(strippedSearchText) || entry.definition.contains { def in
+                        let regexPattern = """
+                        ^\(NSRegularExpression.escapedPattern(for: strippedSearchText))|\\b\(NSRegularExpression.escapedPattern(for: strippedSearchText))(\\b|$)
+                        """
+                        return def.definition.lowercased().range(of: regexPattern, options: .regularExpression) != nil
+                    }
+
+                }
+            } else {
+                filteredEntries = allEntries.filter { entry in
+                    reMatch(string: strippedSearchText, text: stripped(string: entry.lemma))
+                }
             }
-        } else {
-            filteredEntries = allEntries.filter { entry in
-                reMatch(string: string, text: entry.lemma)
+            if limitAudio {
+                filteredEntries = filteredEntries.filter { entry in
+                    entry.audio.count > 0
+                }
+            }
+            if string.contains("#") {
+                if string.contains("#en") {
+                    filteredEntries = filteredEntries.filter {
+                        entry in entry.definition.contains { def in
+                            def.definition.contains(strippedSearchText)
+                        }
+                    }
+                }
+                else if string.contains("#akz") || string.contains("#alabama") {
+                    filteredEntries = filteredEntries.filter {
+                        entry in removeAccents( entry.lemma.lowercased()).contains(strippedSearchText)
+                    }
+                }
+                if string.contains("#noun") {
+                    filteredEntries = filteredEntries.filter { entry in
+                        entry.definition.map { def in
+                            !def.definition.hasPrefix("to ")
+                        }.filter { el in
+                            el == true
+                        }.count > 0
+                        && !entry.lemma.contains(where: { ["-", "<", ">"].contains($0) })
+                    }
+                }
+                if string.contains("#verb") {
+                    filteredEntries = filteredEntries.filter { entry in
+                        entry.definition.map { def in
+                            !def.definition.hasPrefix("to ")
+                        }.filter { el in
+                            el == true
+                        }.count == 0
+                        && !entry.lemma.contains(where: { ["-", "<", ">"].contains($0) })
+                    }
+                }
+                if string.contains("#transitive") {
+                    filteredEntries = filteredEntries.filter { entry in
+                        entry.definition.map { def in
+                            def.wordClass.contains("-LI/CHA-") || def.wordClass.contains("-LI/AM-")
+                        }.filter { $0 }.count > 0
+                    }
+                }
+                if string.contains("#LI") {
+                    filteredEntries = filteredEntries.filter { entry in
+                        entry.definition.map { def in
+                            def.wordClass.contains("-LI")
+                        }.filter { $0 }.count > 0
+                    }
+                }
+                if string.contains("#CHA") {
+                    filteredEntries = filteredEntries.filter { entry in
+                        entry.definition.map { def in
+                            def.wordClass == ("CHA-") || def.wordClass.prefix(7) == ("CHA- or") || def.wordClass == "CHA-/3"
+                        }.filter { $0 }.count > 0
+                    }
+                }
+                if string.contains("#am-p") {
+                    filteredEntries = filteredEntries.filter { entry in
+                        entry.definition.map { def in
+                            def.wordClass == ("AM-p")
+                        }.filter { $0 }.count > 0
+                    }
+                }
+                if string.contains("#AM") {
+                    filteredEntries = filteredEntries.filter { entry in
+                        entry.definition.map { def in
+                            def.wordClass == ("AM-") || def.wordClass.contains("or AM-") || def.wordClass.contains("AM- or") || def.wordClass == "AM-/3"
+                        }.filter { $0 }.count > 0
+                    }
+                }
+            }
+            let searchString = string.replacingOccurrences(of: "$", with: "").replacingOccurrences(of: "^", with: "").replacingOccurrences(of: ".", with: "").replacingOccurrences(of: "*", with: "").replacingOccurrences(of: "+", with: "")
+            filteredEntries.sort { a, b in
+                return stateMachineSort(string: searchString, a: a, b: b)
+            }
+            DispatchQueue.main.async {
+                shownMax = filteredEntries.count
+                loadedResults = filteredEntries
+                isLoading = false
             }
         }
-        
-        if limitAudio {
-            filteredEntries = filteredEntries.filter { entry in
-                entry.audio.count > 0
-            }
-        }
-        
-        filteredEntries.sort { a, b in
-            return stateMachineSort(string: string, a: a, b: b)
-        }
-                
-        shownMax = filteredEntries.count
-        searchResults = Array(filteredEntries[shown..<shown+min(50,shownMax-shown)])
     }
     
     func updateResults(count: Int) {
@@ -154,7 +293,7 @@ struct ContentView: View {
         } else {
             shown += count
         }
-        dictSort()
+        searchResults = Array(loadedResults[shown..<shown + min(50, shownMax - shown)])
     }
     
     func removeAccents(_ string: String) -> String {
@@ -176,66 +315,75 @@ struct ContentView: View {
     }
     
     func longestPrefixofTwoStrs(search: String, a: String, b: String) -> Bool {
-        let aPrefixLength = longestCommonPrefixLength(search, a)
-        let bPrefixLength = longestCommonPrefixLength(search, b)
-
-        if aPrefixLength > bPrefixLength { return true }
-        if bPrefixLength > aPrefixLength { return false }
-        
-        let aContains = isValidSubstringMatch(a, search)
-        let bContains = isValidSubstringMatch(b, search)
-
-        if aContains && !bContains { return true }
-        if bContains && !aContains { return false }
-        
-        else {
-            return a.localizedStandardCompare(b) == .orderedAscending
+        var aPrefix = a.hasPrefix(search)
+        var bPrefix = b.hasPrefix(search)
+        if aPrefix != bPrefix {
+            return aPrefix == true
         }
+        
+        aPrefix = longestCommonPrefixLength(search, a)
+        bPrefix  = longestCommonPrefixLength(search, b)
+        if aPrefix != bPrefix {
+            return aPrefix == true
+        }
+        
+        return a.localizedStandardCompare(b) == .orderedAscending
     }
+
+    
+    func isValidSubstringMatch(_ lemma: String, _ search: String) -> Bool {
+            let regex = "\\b\(NSRegularExpression.escapedPattern(for: search))\\b"
+            let matches = lemma.range(of: regex, options: .regularExpression)
+            return matches != nil
+        }
+    
+    func longestCommonPrefixLength(_ search: String, _ b: String) -> Bool {
+        let bs = b.split(separator: ";")
+        let prefixLengths = bs.map { substring in
+            let substring = String(substring)
+            if substring.hasPrefix(search) {
+                return true
+            } else {
+                return false // A large number for non-matching cases
+            }
+        }
+        return prefixLengths.contains(true)
+    }
+
     
     func stateMachineSort(string: String, a: DictionaryEntry, b: DictionaryEntry) -> Bool {
         let search = removeAccents(string.lowercased())
         let aLemma = removeAccents(a.lemma.lowercased())
         let bLemma = removeAccents(b.lemma.lowercased())
-        let aDefinition = removeAccents(a.definition.lowercased())
-        let bDefinition = removeAccents(b.definition.lowercased())
-        
+        if aLemma == search { return true }
+        if bLemma == search { return false }
+        let aDefinition = (a.definition).map { def in
+            removeAccents(def.definition.lowercased())
+        }.joined(separator: ";")
+        let bDefinition = b.definition.map{ def in
+            removeAccents(def.definition.lowercased())
+        }.joined(separator: ";")
         // Prioritize exact matches (full word or definition)
-        if aLemma == search || aDefinition == search { return true }
-        if bLemma == search || bDefinition == search { return false }
+        if aDefinition == search { return true }
+        if bDefinition == search { return false }
         
-        if search.contains("#en") {
-            return longestPrefixofTwoStrs(search: search.replacingOccurrences(of: "#english", with: "").replacingOccurrences(of: "#en", with: ""), a: aDefinition, b: bDefinition)
+        if reMode {
+        return a.lemma.localizedStandardCompare(b.lemma) == .orderedAscending
         }
-        else if search.contains("#akz") || search.contains("#alabama") {
-            return longestPrefixofTwoStrs(search: search.replacingOccurrences(of: "#alabama", with: "").replacingOccurrences(of: "#akz", with: ""), a: aLemma, b: bLemma)
-        }
-        
-        if aLemma.contains(search) || bLemma.contains(search) {
-            // If both have prefix matches, compare by prefix length
-            return longestPrefixofTwoStrs(search: search, a: aLemma, b: bLemma)
-        }
-        else {
-            // If both have prefix matches, compare by prefix length
-            return longestPrefixofTwoStrs(search: search, a: aDefinition, b: bDefinition)
-        }
-    }
-
-    func isValidSubstringMatch(_ lemma: String, _ search: String) -> Bool {
-        let regex = "\\b\(NSRegularExpression.escapedPattern(for: search))\\b"
-        let matches = lemma.range(of: regex, options: .regularExpression)
-        return matches != nil
-    }
-    
-    // Helper function to compute the length of the longest common prefix
-    func longestCommonPrefixLength(_ s1: String, _ s2: String) -> Int {
-        let minLength = min(s1.count, s2.count)
-        for i in 0..<minLength {
-            if s1[s1.index(s1.startIndex, offsetBy: i)] != s2[s2.index(s2.startIndex, offsetBy: i)] {
-                return i
+        else{
+            if aLemma.contains(search) || bLemma.contains(search) {
+                // If both have prefix matches, compare by prefix length
+                return longestPrefixofTwoStrs(search: search, a: aLemma, b: bLemma)
+            }
+            else {
+                // If both have prefix matches, compare by prefix length
+                return longestPrefixofTwoStrs(search: search, a: aDefinition, b: bDefinition)
             }
         }
-        return minLength
+    }
+    
+    func nearPrefix(_ string: String, _ b: String) -> Bool {
+        return String(string.prefix(b.count + 1)) == "\(b),"
     }
 }
 
@@ -246,7 +394,7 @@ struct HeaderView: View {
                 Image("Alabama-Coushata")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 60, height: 60)
+                    .frame(width: 75, height: 75)
                 Text("Alabama Dictionary")
                     .font(.system(size: 25, weight: .medium))
                     .foregroundColor(.primary)
@@ -316,7 +464,6 @@ struct SearchBarView: View {
                     ZStack {
                         Button(action: {
                             searchText.append(character)
-                            dictSort()
                         }) {
                             Text(character)
                                 .frame(minWidth: 44, maxHeight: 44)  // Adjust the width and height as needed
@@ -332,9 +479,6 @@ struct SearchBarView: View {
 
     func useRE() {
         reMode.toggle()
-        if searchText != "" {
-            dictSort()
-        }
     }
 }
 
@@ -363,54 +507,63 @@ struct ResultsNavigationView: View {
 
 struct ResultsView: View {
     @Binding var searchResults: [DictionaryEntry]
+    @Binding var shown: Int
+    @Binding var shownMax: Int
     
     var body: some View {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    ForEach(searchResults) { entry in
-                        VStack(alignment: .leading) {
-                            HStack {
-                                // Use NavigationLink to make the lemma clickable
-                                NavigationLink(destination: EditorView(entry: entry)) {
-                                    Text(entry.lemma)
-                                            .font(.headline)
-                                            .textSelection(.enabled)
-                                }
-                                Spacer()
-                                if let wordClass = entry.wordClass, wordClass != "nan" {
-                                    Text("[\(wordClass)]")
-                                }
-                            }
-                            if let derivation = entry.derivation, derivation != "nan" {
-                                Text(derivation)
-                                    .italic()
-                            }
-                            Text(entry.definition)
-                                .font(.system(size: 16))
-                            if let principalPart = entry.principalPart, principalPart != "nan" {
-                                let parts = principalPart.split(separator: ", ").map { String($0) }
-                                let labels = ["second person singular", "first person plural", "second person plural"]
-
-                                ForEach(parts.indices, id: \.self) { index in
-                                    if index < labels.count {
-                                        HStack {
-                                            Text(parts[index]).textSelection(.enabled)
-                                            Spacer()
-                                            Text(labels[index]).italic()
-                                        }
-                                    }
-                                }
-                            }
+        ScrollView {
+        if !searchResults.isEmpty {
+                LazyVStack(alignment: .leading) {
+                    ForEach(searchResults[shown..<shown + min(50, shownMax - shown)]) { entry in
+                        NavigationLink(destination: EditorView(entry: entry)) {
+                            ResultView(entry: entry, simple: false)
+                                .contentShape(Rectangle())
                         }
-                        .padding()
+                        .buttonStyle(PlainButtonStyle())
                         Divider()
                     }
                 }
             }
-            .frame(maxHeight: .infinity)
-        }
+        }.frame(maxHeight: .infinity)
+    }
 }
 
+
+struct ResultView: View {
+    let entry: DictionaryEntry
+    @State var simple = false
+    
+    init(entry: DictionaryEntry, simple: Bool = false) {
+        self.entry = entry
+        self.simple = simple
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                // Use NavigationLink to make the lemma clickable
+                    Text(entry.lemma)
+                            .font(.headline)
+                            .textSelection(.enabled)
+                Spacer()
+                if let wordClass = entry.wordClass, wordClass != "nan" {
+                    Text("[\(wordClass)]")
+                }
+            }
+            if !simple {
+                if let derivation = entry.derivation, derivation != "nan" {
+                    Text(derivation)
+                        .italic()
+                }
+            }
+            let def = entry.definition.map{ def in
+                (def.definition)
+            }.joined(separator: ";")
+            Text(def)
+                .font(.system(size: 16))
+        }
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

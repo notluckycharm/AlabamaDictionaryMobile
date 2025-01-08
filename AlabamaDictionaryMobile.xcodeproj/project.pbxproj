@@ -14,6 +14,8 @@
 		492E7B242BEB23B600F3A30E /* AlabamaDictionaryMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B232BEB23B600F3A30E /* AlabamaDictionaryMobileTests.swift */; };
 		492E7B2E2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B2D2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift */; };
 		492E7B302BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */; };
+		49AA097F2D2C8A1A00DB2305 /* FlashCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AA097E2D2C8A1A00DB2305 /* FlashCardsView.swift */; };
+		49AA09832D2D9DB800DB2305 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AA09822D2D9DB800DB2305 /* BookmarkManager.swift */; };
 		49E068CD2D2078B600F81A3C /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E068CC2D2078B600F81A3C /* EditorView.swift */; };
 		49E06A0B2D20CCF200F81A3C /* áapo-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069A12D20CCF200F81A3C /* áapo-fe.wav */; };
 		49E06A0C2D20CCF200F81A3C /* iischoba-fe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49E069D52D20CCF200F81A3C /* iischoba-fe.wav */; };
@@ -154,6 +156,8 @@
 		492E7B292BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlabamaDictionaryMobileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		492E7B2D2BEB23B600F3A30E /* AlabamaDictionaryMobileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileUITests.swift; sourceTree = "<group>"; };
 		492E7B2F2BEB23B600F3A30E /* AlabamaDictionaryMobileUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlabamaDictionaryMobileUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		49AA097E2D2C8A1A00DB2305 /* FlashCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsView.swift; sourceTree = "<group>"; };
+		49AA09822D2D9DB800DB2305 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		49E068C92D1FCCED00F81A3C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		49E068CC2D2078B600F81A3C /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		49E069A12D20CCF200F81A3C /* áapo-fe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "áapo-fe.wav"; sourceTree = "<group>"; };
@@ -317,6 +321,8 @@
 			children = (
 				49E06A0A2D20CCF200F81A3C /* audios */,
 				492E7B112BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift */,
+				49AA09822D2D9DB800DB2305 /* BookmarkManager.swift */,
+				49AA097E2D2C8A1A00DB2305 /* FlashCardsView.swift */,
 				49E06A782D2484CC00F81A3C /* SettingsView.swift */,
 				49E06A762D23884600F81A3C /* AboutView.swift */,
 				49E068CC2D2078B600F81A3C /* EditorView.swift */,
@@ -703,8 +709,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E06A792D2484CC00F81A3C /* SettingsView.swift in Sources */,
+				49AA09832D2D9DB800DB2305 /* BookmarkManager.swift in Sources */,
 				49E06A772D23884600F81A3C /* AboutView.swift in Sources */,
 				49E068CD2D2078B600F81A3C /* EditorView.swift in Sources */,
+				49AA097F2D2C8A1A00DB2305 /* FlashCardsView.swift in Sources */,
 				492E7B142BEB23B500F3A30E /* ContentView.swift in Sources */,
 				492E7B122BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift in Sources */,
 			);

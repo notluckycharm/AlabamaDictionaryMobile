@@ -61,6 +61,10 @@ struct SideMenu: View {
                         Toggle("Only show entries with audio",
                                isOn: $limitAudio)
                     }.padding()
+//                    HStack{
+//                        Text("Limit results to:")
+////                        TODO: Selector button to insert #LI, #CHA, etc.
+//                    }.padding()
                     Spacer()
                 }.padding(.top, 50)
                     .frame(width: 270)
