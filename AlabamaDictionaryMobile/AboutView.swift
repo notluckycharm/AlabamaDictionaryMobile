@@ -18,7 +18,7 @@ struct AboutView: View {
                         .frame(width: 75, height: 75)
                     
                     Text("Dictionary of the Alabama Language").font(.system(size: 25)).bold()
-                }
+                }.padding()
                 HStack{
                     Text("Mobile version; Compiled by Jacob Fernandes")
                     Spacer()

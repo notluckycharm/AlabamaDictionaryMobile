@@ -139,7 +139,7 @@ struct ContentView: View {
                     .tabItem {
                         Label("About", systemImage: "info.circle.fill")
                     }
-                FlashCardsView().tabItem {
+                FavoritesView().tabItem {
                     Label("Favorites", systemImage: "bookmark.fill")
                 }
             }.environment(\.horizontalSizeClass, .compact)
@@ -185,16 +185,24 @@ struct ContentView: View {
             isLoading = true
             var filteredEntries: [DictionaryEntry]
             if !reMode {
-                filteredEntries = allEntries.filter { entry in
-                    removeAccents(stripped(string: entry.lemma.lowercased())).contains(strippedSearchText) || entry.definition.contains { def in
-                        let regexPattern = """
-                        ^\(NSRegularExpression.escapedPattern(for: strippedSearchText))|\\b\(NSRegularExpression.escapedPattern(for: strippedSearchText))(\\b|$)
-                        """
-                        return def.definition.lowercased().range(of: regexPattern, options: .regularExpression) != nil
-                    }
-
+                let regexPattern = """
+                ^\(NSRegularExpression.escapedPattern(for: strippedSearchText))|\\b\(NSRegularExpression.escapedPattern(for: strippedSearchText))(\\b|$)
+                """
+                // Pre-compile the regex pattern
+                guard let regex = try? NSRegularExpression(pattern: regexPattern, options: .caseInsensitive) else {
+                    return // Handle the case where regex can't be created
                 }
-            } else {
+                
+                filteredEntries = allEntries.filter { entry in
+                    // Match the lemma or the definition using regex
+                    removeAccents(stripped(string: entry.lemma.lowercased())).contains(strippedSearchText) || entry.definition.contains { def in
+                        // Use the precompiled regex for matching the definition
+                        let lowercasedDef = def.definition.lowercased()
+                        return regex.firstMatch(in: lowercasedDef, options: [], range: NSRange(lowercasedDef.startIndex..., in: lowercasedDef)) != nil
+                    }
+                }
+            }
+            else {
                 filteredEntries = allEntries.filter { entry in
                     reMatch(string: strippedSearchText, text: stripped(string: entry.lemma))
                 }
@@ -240,7 +248,7 @@ struct ContentView: View {
                 if string.contains("#transitive") {
                     filteredEntries = filteredEntries.filter { entry in
                         entry.definition.map { def in
-                            def.wordClass.contains("-LI/CHA-") || def.wordClass.contains("-LI/AM-")
+                            def.wordClass.contains("-LI/CHA-") || def.wordClass.contains("-LI/AM-") || def.wordClass.contains("CHA-/AM-")
                         }.filter { $0 }.count > 0
                     }
                 }

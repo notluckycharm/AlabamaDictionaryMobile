@@ -70,10 +70,10 @@ struct EditorView: View {
                         }
                     }
                     InflectionView(entry: entry)
-//                    if !relatedTerms.isEmpty {
-//                        DividerWithText(text: "Related Terms").padding(.top, 10)
-//                        RelatedTermsView(relatedTerms: relatedTerms)
-//                    }
+                    if !relatedTerms.isEmpty {
+                        DividerWithText(text: "Related Terms").padding(.top, 10)
+                        RelatedTermsView(relatedTerms: relatedTerms)
+                    }
                     Spacer()
                 }.environment(\.font, .system(size: fontSize))
             }
@@ -236,12 +236,24 @@ struct DividerWithText: View {
 
 struct InflectionView: View {
     let entry: DictionaryEntry
+    
+    private var stem: String {
+            let lemma = entry.lemma
+            if entry.derivation?.contains("im-") ?? false {
+                // Proper string slicing using String.Index
+                let startIndex = lemma.index(lemma.startIndex, offsetBy: 2)
+                let endIndex = lemma.index(lemma.endIndex, offsetBy: -1)
+                return String(lemma[startIndex..<endIndex])
+            }
+            return lemma
+        }
+    
     private var appl: String {
         var appl = "m"
-        if let first = entry.lemma.first, ["m", "n", "l", "y", "w"].contains(first) {
+        if let first = stem.first, ["m", "n", "l", "y", "w"].contains(first) {
                 appl = String(first)
             }
-        else if let first = entry.lemma.first, ["h", "s", "ɬ"].contains(first) {
+        else if let first = stem.first, ["h", "s", "ɬ"].contains(first) {
             appl = "ⁿ"
         }
         return appl
@@ -298,36 +310,35 @@ struct InflectionView: View {
                         Text("Third person plural").italic()
                     }
                 }
-            } else if entry.wordClass == "AM-p" {
-                ZStack {
-                    Rectangle()
-                        .fill(Color.gray) // Solid gray background
-                        .frame(height: 40) // Adjust height as needed
-                    
-                    HStack {
-                        Text("Possessive Forms")
-                            .foregroundColor(.white) // Text color
-                            .font(.headline) // Font style
-                    }
-                }
-                
-                VStack(spacing: 0) {
-                    let defCut = entry.definition.first?.definition
-                        .split(separator: ",")
-                        .map(String.init) ?? []
-                    
-                    let prefixes = ["My", "Your", "Her/his/their", "Our", "Y'all's"]
-                    let akzPrefixes = ["a", "chi", "i", "ko", "hachi"]
-                    
-                    ForEach(Array(zip(prefixes, akzPrefixes)), id: \.0) { (prefix, akzPrefix) in
-                        HStack {
-                            Text("\(akzPrefix)\(appl)\(entry.lemma)")
-                            Spacer()
-                            Text("\(prefix) \(defCut.first ?? "unknown definition")")
-                        }
-                    }
-                }
-            }
+            } //else if entry.wordClass == "AM-p" {
+//                ZStack {
+//                    Rectangle()
+//                        .fill(Color.gray) // Solid gray background
+//                        .frame(height: 40) // Adjust height as needed
+//                    
+//                    HStack {
+//                        Text("Possessive Forms")
+//                            .foregroundColor(.white) // Text color
+//                            .font(.headline) // Font style
+//                    }
+//                }
+//                
+//                VStack(spacing: 0) {
+//                    let defCut = entry.definition.first?.definition
+//                                    .split(separator: ",")
+//                                    .map(String.init) ?? []
+//                    let prefixes = ["My", "Your", "Her/his/their", "Our", "Y'all's"]
+//                    let akzPrefixes = ["a", "chi", "i", "ko", "hachi"]
+//                    
+//                    ForEach(Array(zip(prefixes, akzPrefixes)), id: \.0) { (prefix, akzPrefix) in
+//                        HStack {
+//                            Text("\(akzPrefix)\(appl)\(stem)")
+//                            Spacer()
+//                            Text("\(prefix) \(defCut.first ?? "unknown definition")")
+//                        }
+//                    }
+//                }
+//            }
 //            } else if entry.wordClass == "CHA-" && entry.definition.prefix(3) != "to " {
 //                ZStack {
 //                    Rectangle()
