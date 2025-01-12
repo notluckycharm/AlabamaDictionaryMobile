@@ -238,10 +238,10 @@ struct ContentView: View {
                 if string.contains("#verb") {
                     filteredEntries = filteredEntries.filter { entry in
                         entry.definition.map { def in
-                            !def.definition.hasPrefix("to ")
+                            def.definition.hasPrefix("to ")
                         }.filter { el in
                             el == true
-                        }.count == 0
+                        }.count > 0
                         && !entry.lemma.contains(where: { ["-", "<", ">"].contains($0) })
                     }
                 }
@@ -551,7 +551,7 @@ struct ResultView: View {
             HStack {
                 // Use NavigationLink to make the lemma clickable
                     Text(entry.lemma)
-                            .font(.headline)
+                            .bold()
                             .textSelection(.enabled)
                 Spacer()
                 if let wordClass = entry.wordClass, wordClass != "nan" {
@@ -568,7 +568,6 @@ struct ResultView: View {
                 (def.definition)
             }.joined(separator: ";")
             Text(def)
-                .font(.system(size: 16))
         }
     }
 }

@@ -12,4 +12,5 @@ enum Constants {
     static let cardHeight: CGFloat = 400
     static let cardWidth: CGFloat = 300
     static let flipTime = 0.3
+    static let flipThreshold: CGFloat = 150
 }

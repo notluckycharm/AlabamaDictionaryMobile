@@ -106,6 +106,8 @@ struct EditorView: View {
                     isFavorited.toggle()
                 }) {
                     Image(systemName: isFavorited ? "bookmark.fill" : "bookmark").foregroundColor(.gray)
+                }.onAppear() {
+                    isFavorited = FavoritesManager.shared.getFavorites().contains(where: { $0.lemma == entry.lemma })
                 }
             }
         }

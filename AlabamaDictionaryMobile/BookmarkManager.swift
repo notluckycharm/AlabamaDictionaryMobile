@@ -14,6 +14,16 @@ class FavoritesManager {
 
     private init() {}
 
+    private var modified = false
+    
+    func modify() {
+        modified = true
+    }
+    
+    func getModify() -> Bool {
+        return modified
+    }
+    
     // Save a word to favorites
     func addFavorite(word: DictionaryEntry) {
         var favorites = getFavorites()
@@ -21,6 +31,7 @@ class FavoritesManager {
             favorites.append(word)
             saveFavorites(favorites)
         }
+        modify()
     }
 
     // Remove a word from favorites
@@ -28,10 +39,12 @@ class FavoritesManager {
         var favorites = getFavorites()
         favorites.removeAll(where: { $0.lemma == word.lemma })
         saveFavorites(favorites)
+        modify()
     }
 
     // Get all favorited words
     func getFavorites() -> [DictionaryEntry] {
+        modified = false
         if let data = UserDefaults.standard.data(forKey: favoritesKey),
            let favorites = try? JSONDecoder().decode([DictionaryEntry].self, from: data) {
             return favorites
