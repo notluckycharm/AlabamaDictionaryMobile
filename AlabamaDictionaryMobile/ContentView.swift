@@ -133,7 +133,7 @@ struct ContentView: View {
                     
                     
                 }.tabItem {
-                    Label("Home", systemImage: "house.fill")
+                    Label("Dictionary", systemImage: "text.book.closed.fill")
                 }
                 AboutView()
                     .tabItem {
@@ -361,6 +361,7 @@ struct ContentView: View {
     
     func stateMachineSort(string: String, a: DictionaryEntry, b: DictionaryEntry) -> Bool {
         let search = removeAccents(string.lowercased())
+        let strippedSearch = (stripped(string: search))
         let aLemma = removeAccents(a.lemma.lowercased())
         let bLemma = removeAccents(b.lemma.lowercased())
         if aLemma == search { return true }
@@ -375,11 +376,11 @@ struct ContentView: View {
         if aDefinition == search { return true }
         if bDefinition == search { return false }
         
-        if reMode {
-        return a.lemma.localizedStandardCompare(b.lemma) == .orderedAscending
+        if reMode || strippedSearch == "" {
+            return a.lemma.localizedStandardCompare(b.lemma) == .orderedAscending
         }
         else{
-            if aLemma.contains(search) || bLemma.contains(search) {
+            if aLemma.contains(strippedSearch) || bLemma.contains(strippedSearch) {
                 // If both have prefix matches, compare by prefix length
                 return longestPrefixofTwoStrs(search: search, a: aLemma, b: bLemma)
             }

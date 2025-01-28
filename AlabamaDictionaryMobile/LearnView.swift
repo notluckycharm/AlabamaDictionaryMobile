@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct LearnView: View {
+    @State var current : Int = 0
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            ScrollView(){
+                VStack{
+                    NavigationLink(destination: LessonView()){
+                        ZStack{
+                            Text("Unit 1: Introductions and Greetings")
+                                .zIndex(1)
+                                .foregroundColor(Color.white)
+                                .bold()
+                            RoundedRectangle(cornerRadius: 10)
+                                .frame(height: 50)
+                                .foregroundColor(current == 0 ? Color.yellow : Color.gray)
+                        }.padding()
+                    }
+                }
+            }
+        }
     }
 }
 

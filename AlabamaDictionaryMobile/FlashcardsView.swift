@@ -15,83 +15,92 @@ struct FlashcardsView: View {
     @State private var swingDir = 0
     @State private var currentWord: DictionaryEntry? // Track the current top card
     @State private var showBack = false
+    @State private var front: String = "Alabama"
+    @State private var back: String = "English"
+    @State private var start: Bool = false
 
     func getCurr() ->  [DictionaryEntry] {
         return shuffledWords
     }
     
     var body: some View {
-        VStack {
-            Group {
-                if swingDir == 1 {
-                    Text("I know this word.")
-                        .foregroundColor(.green)
-                } else if swingDir == -1 {
-                    Text("I don't know this word.")
-                        .foregroundColor(.red)
-                } else {
-                    Text(" ") // Keeps spacing consistent
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .center)
-            .padding()
-            ZStack {
-                if shuffledWords.isEmpty {
-                    FlashDeckEndView(restartAction: restartDeck)
-                } else {
-                    ForEach(getCurr()) { word in
-                        FlipCardView(
-                            word: word,
-                            swingDir: $swingDir,
-                            shuffledWords: $shuffledWords,
-                            currentWord: $currentWord,
-                            showBack: $showBack
-                        ).zIndex(word == currentWord ? 1 : 0)
+        ZStack{
+            ModeView(front: $front, back: $back, start: $start)
+            if start {
+                VStack {
+                    Group {
+                        if swingDir == 1 {
+                            Text("I know this word.")
+                                .foregroundColor(.green)
+                        } else if swingDir == -1 {
+                            Text("I don't know this word.")
+                                .foregroundColor(.red)
+                        } else {
+                            Text(" ") // Keeps spacing consistent
+                        }
                     }
-                }
-            }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .center)
-            .frame(height: Constants.cardHeight)
-            .id(deckID)
-            .onAppear {
-                restartDeck()
-            }
-            .zIndex(1)
-            Text(" ")
-                .frame(maxWidth: .infinity, alignment: .center)
-            HStack {
-                Button(action: {
-                    // Add the current card back to the deck (marked as unknown)
-                    if let word = currentWord {
-                        shuffledWords.removeAll { $0.id == word.id }
-                        shuffledWords.insert(word, at: 0)
-                        showBack = false
-                        currentWord = shuffledWords.last
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding()
+                    ZStack {
+                        if shuffledWords.isEmpty {
+                            FlashDeckEndView(restartAction: restartDeck)
+                        } else {
+                            ForEach(getCurr()) { word in
+                                FlipCardView(
+                                    word: word,
+                                    swingDir: $swingDir,
+                                    shuffledWords: $shuffledWords,
+                                    currentWord: $currentWord,
+                                    showBack: $showBack,
+                                    front: front
+                                ).zIndex(word == currentWord ? 1 : 0)
+                            }
+                        }
                     }
-                }) {
-                    Image(systemName: "xmark")
-                        .foregroundColor(.white)
-                        .padding()
-                }
-                .background(.red)
-                .cornerRadius(10)
-                Button(action: {
-                    // Mark the card as known and remove it from the deck
-                    if let word = currentWord {
-                        shuffledWords.removeAll { $0.id == word.id }
-                        showBack = false
-                        currentWord = shuffledWords.last
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .frame(height: Constants.cardHeight)
+                    .id(deckID)
+                    .onAppear {
+                        restartDeck()
                     }
-                }) {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.white)
-                        .padding()
+                    .zIndex(1)
+                    Text(" ")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    HStack {
+                        Button(action: {
+                            // Add the current card back to the deck (marked as unknown)
+                            if let word = currentWord {
+                                shuffledWords.removeAll { $0.id == word.id }
+                                shuffledWords.insert(word, at: 0)
+                                showBack = false
+                                currentWord = shuffledWords.last
+                            }
+                        }) {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                        .background(.red)
+                        .cornerRadius(10)
+                        Button(action: {
+                            // Mark the card as known and remove it from the deck
+                            if let word = currentWord {
+                                shuffledWords.removeAll { $0.id == word.id }
+                                showBack = false
+                                currentWord = shuffledWords.last
+                            }
+                        }) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                        .background(.green)
+                        .cornerRadius(10)
+                    }
+                    .zIndex(0)
                 }
-                .background(.green)
-                .cornerRadius(10)
             }
-            .zIndex(0)
         }
     }
 
@@ -108,6 +117,7 @@ struct FlipCardView: View {
     @Binding var shuffledWords: [DictionaryEntry]
     @Binding var currentWord: DictionaryEntry?
     @Binding var showBack: Bool
+    let front: String
     @State private var offset: CGSize = .zero
     @State private var isRemoved = false
     @State private var rotationAngle: Double = 0
@@ -120,7 +130,7 @@ struct FlipCardView: View {
 //                        Card(word: word, type: "audio", swingDir: $swingDir, shuffledWords: $shuffledWords, currentWord: $currentWord)
 //                    }
 //                    else{
-                        Card(word: word, type: "meaning", swingDir: $swingDir, shuffledWords: $shuffledWords, currentWord: $currentWord)
+                    Card(word: word, type: "meaning", swingDir: $swingDir, shuffledWords: $shuffledWords, currentWord: $currentWord, front: front)
 //                    }
                 }
             }
@@ -134,6 +144,7 @@ struct Card: View {
     @Binding var swingDir: Int
     @Binding var shuffledWords: [DictionaryEntry]
     @Binding var currentWord: DictionaryEntry?
+    let front: String
     
     @State private var showBack = false
     @State private var offset: CGSize = .zero
@@ -143,17 +154,33 @@ struct Card: View {
     var body: some View {
         if let word = word {
             Group {
-                if type == "audio" {
-                    AudioCard(path: word.audio[0])
-                        .opacity(showBack ? 0 : 1)
+                if front == "Audio" {
+                    if !word.audio.isEmpty{
+                        AudioCard(path: word.audio[0])
+                            .opacity(showBack ? 0 : 1)
+                    }
+                    else {
+                        FrontCard(word: word)
+                            .opacity(showBack ? 0 : 1)
+                    }
+                    FrontCard(word: word)
+                        .opacity(showBack ? 1 : 0)
+                        .rotation3DEffect(Angle(degrees: 180), axis: (x: 0.0, y: 1.0, z: 0.0))
                 }
-                else {
+                else if front == "Alabama" {
                     FrontCard(word: word)
                         .opacity(showBack ? 0 : 1)
+                    BackCard(word: word)
+                        .opacity(showBack ? 1 : 0)
+                        .rotation3DEffect(Angle(degrees: 180), axis: (x: 0.0, y: 1.0, z: 0.0))
                 }
-                BackCard(word: word)
-                    .opacity(showBack ? 1 : 0)
-                    .rotation3DEffect(Angle(degrees: 180), axis: (x: 0.0, y: 1.0, z: 0.0))
+                else {
+                    BackCard(word: word)
+                        .opacity(showBack ? 0 : 1)
+                    FrontCard(word: word)
+                        .opacity(showBack ? 1 : 0)
+                        .rotation3DEffect(Angle(degrees: 180), axis: (x: 0.0, y: 1.0, z: 0.0))
+                }
             }
             .offset(x: showBack ? -offset.width : offset.width, y: offset.height)            .rotationEffect(.degrees(Double(offset.width / 20)))
             .rotation3DEffect(
@@ -299,3 +326,182 @@ struct FlashDeckEndView: View {
             .card() // Assuming you have a card modifier for styling
         }
 }
+
+struct ModeView: View {
+    @Binding var front: String
+    @Binding var back: String
+    @Binding var start: Bool
+    @State private var frontOpts: [String] = ["Alabama", "Audio", "English"]
+    @State private var backOpts: [String] = ["Alabama", "English"]
+    @State private var opacity: Double = 1
+    
+    var body: some View {
+        VStack{
+            Text("Customize Flashcards")
+            Group
+            {
+                VStack{
+                    Text("Card Front")
+                    HStack{
+                        if front == "Alabama" {
+                            ZStack{
+                                Text("Alabama")
+                                    .zIndex(1)
+                                    .foregroundColor(Color.white)
+                                RoundedRectangle(cornerRadius: 15)
+                                    .frame(width: 100, height: 50)
+                                    .foregroundColor(Color.blue)
+                            }
+                        }
+                        else {
+                            Button(action: {
+                                withAnimation{
+                                    back = "English"
+                                    front = "Alabama"
+                                }
+                            }){
+                                Text("Alabama")
+                                    .padding()
+                            }.buttonStyle(PlainButtonStyle())
+                        }
+                        if front == "Audio" {
+                            ZStack{
+                                Text("Audio")
+                                    .zIndex(1)
+                                    .foregroundColor(Color.white)
+                                RoundedRectangle(cornerRadius: 15)
+                                    .frame(width: 100, height: 50)
+                                    .foregroundColor(Color.blue)
+                            }
+                        }
+                        else {
+                            Button(action: {
+                                withAnimation{
+                                    front = "Audio"
+                                }
+                            }){
+                                Text("Audio")
+                                    .padding()
+                            }.buttonStyle(PlainButtonStyle())
+                        }
+                        if front == "English" {
+                            ZStack{
+                                Text("English")
+                                    .zIndex(1)
+                                    .foregroundColor(Color.white)
+                                RoundedRectangle(cornerRadius: 15)
+                                    .frame(width: 100, height: 50)
+                                    .foregroundColor(Color.blue)
+                            }
+                        }
+                        else {
+                            Button(action: {
+                                withAnimation{
+                                    back = "Alabama"
+                                    front = "English"
+                                }
+                            }){
+                                Text("English")
+                                    .padding()
+                            }.buttonStyle(PlainButtonStyle())
+                        }
+                        
+                    }.background(Color.gray)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                }
+                VStack{
+                    Text("Card Back")
+                    HStack{
+                        if back == "Alabama" {
+                            ZStack{
+                                Text("Alabama")
+                                    .zIndex(1)
+                                    .foregroundColor(Color.white)
+                                RoundedRectangle(cornerRadius: 15)
+                                    .frame(width: 100, height: 50)
+                                    .foregroundColor(Color.blue)
+                            }
+                        }
+                        else {
+                            Button(action: {
+                                withAnimation{
+                                    back = "Alabama"
+                                    front = "English"
+                                }
+                            }){
+                                Text("Alabama")
+                                    .padding()
+                            }.buttonStyle(PlainButtonStyle())
+                        }
+                        if back == "English" {
+                            ZStack{
+                                Text("English")
+                                    .zIndex(1)
+                                    .foregroundColor(Color.white)
+                                RoundedRectangle(cornerRadius: 15)
+                                    .frame(width: 100, height: 50)
+                                    .foregroundColor(Color.blue)
+                            }
+                        }
+                        else {
+                            Button(action: {
+                                withAnimation{
+                                    back = "English"
+                                    front = "Alabama"
+                                }
+                            }){
+                                Text("English")
+                                    .padding()
+                            }.buttonStyle(PlainButtonStyle())
+                        }
+                        
+                    }.background(Color.gray)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                }
+                ZStack{
+                    Button(action: {
+                        opacity = 0
+                        start = true
+                    }) {
+                        Text("Start")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                        .zIndex(1)
+                        .foregroundColor(Color.white)
+                    RoundedRectangle(cornerRadius: 15)
+                        .frame(width: 100, height: 50)
+                        .foregroundColor(Color.blue)
+                }
+                
+            }.padding()
+        }.frame(width: Constants.cardWidth+50, height: Constants.cardHeight+100)
+            .background(RoundedRectangle(cornerRadius: 15).fill(.white))
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 1)
+            .opacity(opacity)
+    }
+}
+
+//struct OptView: View {
+//    let opts: [String]
+//    let condition: String
+//    
+//    var body: some View {
+//        HStack{
+//                if condition.contains(opt) {
+//                    ZStack{
+//                        Text(opt)
+//                            .foregroundColor(Color.white)
+//                        RoundedRectangle(cornerRadius: 15)
+//                            .frame(width: 100, height: 50)
+//                            .foregroundColor(Color.blue)
+//                    }
+//                }
+//                else {
+//                    Text(opt)
+//                }
+//            }
+//        }
+//    }
+//}
+
