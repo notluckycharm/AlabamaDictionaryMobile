@@ -18,7 +18,10 @@ struct LessonView: View {
     @State var text : String = ""
     @State var question: String = "Aliilamoolo."
     @State var answers: [String] = []
+    @State var items: [String] = ["thank", "welcome", "hello!", "you", "see", "help", "test", "cmon", "this", "is", "a", "test"]
+
     var body: some View {
+        @State var visibleStates: [Bool] = items.map { _ in true }
         VStack{
             Text(Prompts[3] ?? "Complete the task.").font(.title).padding()
             Text(question)
@@ -26,7 +29,7 @@ struct LessonView: View {
                     .fontWeight(.bold)
                 .padding()
             if mode == 1 {
-                UnderlinedTextBoxesView(answers: $answers)
+                UnderlinedTextBoxesView(answers: $answers, visibleStates: $visibleStates)
             }
             Spacer()
             if mode == 0 {
@@ -40,7 +43,7 @@ struct LessonView: View {
                     ).padding()
             }
             else if mode == 1 {
-                FlowLayout(items: ["thank", "welcome", "hello!", "you", "see", "help", "test", "cmon", "this", "is", "a", "test"], spacing: 10, answers: $answers)
+                FlowLayout(items: items, spacing: 10, answers: $answers, visibleStates: $visibleStates)
             }
             ZStack{
                 Text("Check Answer")
@@ -75,6 +78,7 @@ struct LessonView: View {
 struct UnderlinedTextBoxesView: View {
     @State var text: String = ""
     @Binding var answers: [String]
+    @Binding var visibleStates: [Bool]
     var body: some View {
         HStack(spacing: 10) { // Adjust spacing between boxes
             VStack {
@@ -85,21 +89,29 @@ struct UnderlinedTextBoxesView: View {
                             .foregroundColor(.gray)
                             .opacity(0.3)
                         HStack {
-                            answer(
-                                cellPadding: 10,
-                                item: answers[row],
-                                onClick: { isVisible in
-                                    // Toggle visibility
-                                    if isVisible {
-                                        if let index = answers.firstIndex(of: answers[row]) {
-                                            answers.remove(at: index)
-                                        }
-                                    }
-                                },
-                                answers: $answers,
-                                resultColor: Color.white,
-                                isVisible: true
-                            )
+                            if let index = answers.firstIndex(of: answers[row]) {
+                                                            // Create a binding to the corresponding element in visibleStates
+                                                            let trueVal = Binding<Bool>(
+                                                                get: { visibleStates[index] },
+                                                                set: { visibleStates[index] = $0 }
+                                                            )
+
+                                                            answer(
+                                                                cellPadding: 10,
+                                                                item: answers[row],
+                                                                onClick: { isVisible in
+                                                                    // Toggle visibility and remove answer from the list if invisible
+                                                                    if isVisible {
+                                                                        if let index = answers.firstIndex(of: answers[row]) {
+                                                                            answers.remove(at: index)
+                                                                        }
+                                                                    }
+                                                                },
+                                                                answers: $answers,
+                                                                resultColor: Color.white,
+                                                                isVisible: trueVal  // Bind to visibleStates
+                                                            )
+                                                        }
                         }
                         .frame(height: 32)
                     }
@@ -137,6 +149,8 @@ struct FlowLayout: View {
     let items: [String]
     let spacing: CGFloat
     @Binding var answers: [String]
+    @Binding var visibleStates: [Bool]
+    
     let cellPadding: CGFloat = 8
     
     @State private var contentHeight: CGFloat = .zero // Dynamic height tracking
@@ -163,10 +177,10 @@ struct FlowLayout: View {
     private func generateContent(in size: CGSize) -> some View {
         var rows: [[String]] = [[]]
         var currentRowWidth: CGFloat = spacing * 2
-        
+
         for item in items {
             let itemWidth = textWidth(for: item, in: size) + spacing + (cellPadding * 2)
-            
+
             if currentRowWidth + itemWidth + spacing > size.width {
                 rows.append([item]) // Start a new row
                 currentRowWidth = itemWidth
@@ -175,25 +189,41 @@ struct FlowLayout: View {
                 currentRowWidth += itemWidth
             }
         }
-        
+
         return VStack(spacing: spacing) {
             ForEach(0..<rows.count, id: \.self) { rowIndex in
                 HStack(spacing: spacing) {
                     ForEach(rows[rowIndex], id: \.self) { item in
-                        answer(cellPadding: cellPadding, item: item,
-                               onClick: { isVisible in
-                                   // Toggle visibility
-                                    answers.append(item)
-                               },
-                               answers: $answers,
-                               resultColor: Color.gray,
-                               isVisible: !answers.contains(item))
+                        if let index = items.firstIndex(of: item) {
+                            // Create a binding to the corresponding element in visibleState
+                            let trueVal = Binding<Bool>(
+                                get: { visibleStates[index] },
+                                set: { visibleStates[index] = $0 }
+                            )
+
+                            answer(
+                                cellPadding: cellPadding,
+                                item: item,
+                                onClick: { isVisible in
+                                    // Toggle visibility
+                                    if isVisible {
+                                        answers.append(item)
+                                    } else if let answerIndex = answers.firstIndex(of: item) {
+                                        answers.remove(at: answerIndex)
+                                    }
+                                },
+                                answers: $answers,
+                                resultColor: Color.gray,
+                                isVisible: trueVal
+                            )
+                        }
                     }
                 }
             }
         }
         .padding(.horizontal, cellPadding)
     }
+
     
     private func textWidth(for text: String, in size: CGSize) -> CGFloat {
         let font = UIFont.preferredFont(forTextStyle: .body)
@@ -209,7 +239,7 @@ struct answer: View {
     let onClick: (Bool) -> Void
     @Binding var answers : [String]
     let resultColor: Color
-    @State var isVisible: Bool
+    @Binding var isVisible: Bool
 
     var body: some View {
             Button(action: {

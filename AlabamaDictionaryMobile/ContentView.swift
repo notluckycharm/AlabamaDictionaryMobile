@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct Sentence: Codable, Identifiable, Equatable {
     let id = UUID()
@@ -40,8 +41,7 @@ struct Definition: Codable, Identifiable, Equatable {
             lhs.definition == rhs.definition
         }
 }
-
-struct DictionaryEntry: Identifiable, Codable, Equatable {
+struct DictionaryEntry: Identifiable, Codable, Equatable, Hashable {
     var id: String { lemma }
     let lemma: String
     let definition: [Definition]
@@ -52,7 +52,6 @@ struct DictionaryEntry: Identifiable, Codable, Equatable {
     let relatedTerms: [String]
     let audio: [String]
     let sentences: [Sentence]
-
     enum CodingKeys: String, CodingKey {
         case lemma, definition, wordClass = "class", principalPart, derivation, notes, relatedTerms, audio, sentences
     }
@@ -69,6 +68,10 @@ struct DictionaryEntry: Identifiable, Codable, Equatable {
             lhs.audio == rhs.audio &&
             lhs.sentences == rhs.sentences
         }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(lemma)
+    }
 }
 
 
@@ -108,6 +111,7 @@ struct ContentView: View {
     @State private var limitAudio: Bool = false
     @State private var loadedResults: [DictionaryEntry] = []
     @State private var isLoading: Bool = false
+    @EnvironmentObject var settings: AppSettings
 
     var body: some View {
         ZStack{
@@ -138,6 +142,10 @@ struct ContentView: View {
                 AboutView()
                     .tabItem {
                         Label("About", systemImage: "info.circle.fill")
+                    }
+                SettingsView(isShowing: $presentSideMenu, reMode: $reMode, limitAudio: $limitAudio)
+                    .zIndex(1).tabItem{
+                        Label("Settings", systemImage:"gear")
                     }
                 FavoritesView().tabItem {
                     Label("Favorites", systemImage: "bookmark.fill")
@@ -179,7 +187,7 @@ struct ContentView: View {
     }
     
     func dictSort() {
-        let string = !reMode ? removeAccents(searchText.lowercased()) : searchText
+        let string = !reMode ? DictUtils.removeAccents(searchText.lowercased()) : searchText
         let strippedSearchText = stripped(string: string)
         DispatchQueue.global(qos: .userInitiated).async {
             isLoading = true
@@ -195,7 +203,7 @@ struct ContentView: View {
                 
                 filteredEntries = allEntries.filter { entry in
                     // Match the lemma or the definition using regex
-                    removeAccents(stripped(string: entry.lemma.lowercased())).contains(strippedSearchText) || entry.definition.contains { def in
+                    DictUtils.removeAccents(stripped(string: entry.lemma.lowercased())).contains(strippedSearchText) || entry.definition.contains { def in
                         // Use the precompiled regex for matching the definition
                         let lowercasedDef = def.definition.lowercased()
                         return regex.firstMatch(in: lowercasedDef, options: [], range: NSRange(lowercasedDef.startIndex..., in: lowercasedDef)) != nil
@@ -204,7 +212,7 @@ struct ContentView: View {
             }
             else {
                 filteredEntries = allEntries.filter { entry in
-                    reMatch(string: strippedSearchText, text: stripped(string: entry.lemma))
+                    DictUtils.reMatch(string: strippedSearchText, text: stripped(string: entry.lemma))
                 }
             }
             if limitAudio {
@@ -222,7 +230,7 @@ struct ContentView: View {
                 }
                 else if string.contains("#akz") || string.contains("#alabama") {
                     filteredEntries = filteredEntries.filter {
-                        entry in removeAccents( entry.lemma.lowercased()).contains(strippedSearchText)
+                        entry in DictUtils.removeAccents( entry.lemma.lowercased()).contains(strippedSearchText)
                     }
                 }
                 if string.contains("#noun") {
@@ -304,24 +312,6 @@ struct ContentView: View {
         searchResults = Array(loadedResults[shown..<shown + min(50, shownMax - shown)])
     }
     
-    func removeAccents(_ string: String) -> String {
-        string.replacingOccurrences(of: "à", with: "a")
-            .replacingOccurrences(of: "á", with: "a")
-            .replacingOccurrences(of: "ó", with: "o")
-            .replacingOccurrences(of: "ò", with: "o")
-            .replacingOccurrences(of: "í", with: "i")
-            .replacingOccurrences(of: "ì", with: "i")
-            .replacingOccurrences(of: "\u{2081}", with: "")
-            .replacingOccurrences(of: "\u{2082}", with: "")
-            .replacingOccurrences(of: "\u{2083}", with: "")
-    }
-    
-    func reMatch(string: String, text: String) -> Bool {
-        let re = string.replacingOccurrences(of: "C", with: "[bcdfhklɬmnpstwy]")
-            .replacingOccurrences(of: "V", with: "[aeoiáóéíàòìè]")
-        return text.range(of: re, options: .regularExpression) != nil
-    }
-    
     func longestPrefixofTwoStrs(search: String, a: String, b: String) -> Bool {
         var aPrefix = a.hasPrefix(search)
         var bPrefix = b.hasPrefix(search)
@@ -360,17 +350,17 @@ struct ContentView: View {
 
     
     func stateMachineSort(string: String, a: DictionaryEntry, b: DictionaryEntry) -> Bool {
-        let search = removeAccents(string.lowercased())
+        let search = DictUtils.removeAccents(string.lowercased())
         let strippedSearch = (stripped(string: search))
-        let aLemma = removeAccents(a.lemma.lowercased())
-        let bLemma = removeAccents(b.lemma.lowercased())
+        let aLemma = DictUtils.removeAccents(a.lemma.lowercased())
+        let bLemma = DictUtils.removeAccents(b.lemma.lowercased())
         if aLemma == search { return true }
         if bLemma == search { return false }
         let aDefinition = (a.definition).map { def in
-            removeAccents(def.definition.lowercased())
+            DictUtils.removeAccents(def.definition.lowercased())
         }.joined(separator: ";")
         let bDefinition = b.definition.map{ def in
-            removeAccents(def.definition.lowercased())
+            DictUtils.removeAccents(def.definition.lowercased())
         }.joined(separator: ";")
         // Prioritize exact matches (full word or definition)
         if aDefinition == search { return true }
@@ -397,6 +387,7 @@ struct ContentView: View {
 }
 
 struct HeaderView: View {
+    @EnvironmentObject var settings: AppSettings
     var body: some View {
         VStack(){
             HStack(alignment: .center, spacing: 16) {
@@ -405,7 +396,7 @@ struct HeaderView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 75, height: 75)
                 Text("Alabama Dictionary")
-                    .font(.system(size: 25, weight: .medium))
+                    .font(.system(size: settings.fontSize + 7, weight: .medium))
                     .foregroundColor(.primary)
                     .padding(.vertical)
             }
@@ -425,6 +416,7 @@ struct LimitView: View{
 }
 
 struct SearchBarView: View {
+    @EnvironmentObject var settings: AppSettings
     @Binding var searchText: String
     @Binding var reMode: Bool
     var dictSort: () -> Void
@@ -447,7 +439,7 @@ struct SearchBarView: View {
                                                 .stroke(lineWidth: 1.0)
                                         )
                         .padding()
-                        .font(Font.system(size:20))
+                        .font(Font.system(size:settings.fontSize + 2))
                         .overlay(
                             HStack {
                                 Spacer()
@@ -494,6 +486,7 @@ struct SearchBarView: View {
 
 
 struct ResultsNavigationView: View {
+    @EnvironmentObject var settings: AppSettings
     @Binding var shown: Int
     @Binding var shownMax: Int
     var updateResults: (Int) -> Void
@@ -502,13 +495,14 @@ struct ResultsNavigationView: View {
         HStack {
             Button(action: { updateResults(-50) }) {
                 Text("<")
-                    .font(.system(size: 30))
+                    .font(.system(size: settings.fontSize + 12))
                     
             }
             .frame(height: 10.0)
             Text("\(shown) - \(shown + min(50, shownMax - shown)) Results Shown out of \(shownMax)")
+                .font(.system(size:settings.fontSize))
             Button(action: { updateResults(50) }) {
-                Text(">").font(.system(size: 30))
+                Text(">").font(.system(size: settings.fontSize + 12))
             }
         }
     }
@@ -518,22 +512,33 @@ struct ResultsView: View {
     @Binding var searchResults: [DictionaryEntry]
     @Binding var shown: Int
     @Binding var shownMax: Int
-    
+    @EnvironmentObject var settings: AppSettings
+
     var body: some View {
-        ScrollView {
-        if !searchResults.isEmpty {
-                LazyVStack(alignment: .leading) {
-                    ForEach(searchResults[shown..<shown + min(50, shownMax - shown)]) { entry in
-                        NavigationLink(destination: EditorView(entry: entry)) {
-                            ResultView(entry: entry, simple: false)
-                                .contentShape(Rectangle())
+        NavigationStack {
+            ScrollView {
+                if !searchResults.isEmpty {
+                    LazyVStack(alignment: .leading) {
+                        ForEach(searchResults[shown..<shown + min(50, shownMax - shown)]) { entry in
+                            NavigationLink(value: entry) {
+                                ResultView(entry: entry, simple: false)
+                                    .contentShape(Rectangle())
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            Divider()
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        Divider()
                     }
                 }
-            }
-        }.frame(maxHeight: .infinity)
+                else{
+                    Spacer()
+                    Text("Enter text in the search bar above and press Enter to look up words!")
+                        .font(.system(size: settings.fontSize))
+                    Spacer()
+                }
+            }.frame(maxHeight: .infinity)
+        }.navigationDestination(for: DictionaryEntry.self) { entry in
+            EditorView(entry: entry)
+        }
     }
 }
 
@@ -541,19 +546,62 @@ struct ResultsView: View {
 struct ResultView: View {
     let entry: DictionaryEntry
     @State var simple = false
-    
-    init(entry: DictionaryEntry, simple: Bool = false) {
-        self.entry = entry
-        self.simple = simple
+    @State private var audioPlayer: AVPlayer? = nil
+    @EnvironmentObject var settings: AppSettings
+
+    func removeAccents(_ string: String) -> String {
+        string.replacingOccurrences(of: "à", with: "a")
+            .replacingOccurrences(of: "á", with: "a")
+            .replacingOccurrences(of: "ó", with: "o")
+            .replacingOccurrences(of: "ò", with: "o")
+            .replacingOccurrences(of: "í", with: "i")
+            .replacingOccurrences(of: "ì", with: "i")
     }
+//    init(entry: DictionaryEntry, simple: Bool = false) {
+//        self.entry = entry
+//        self.simple = simple
+//        self.fontSize = fontSize
+//    }
     
+    func playAudio(at path: String) {
+        // Configure the audio session
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.playback, mode: .default, options: [])
+            try audioSession.setActive(true)
+        } catch {
+            print("Failed to configure audio session: \(error)")
+            return
+        }
+        
+        // Find the file URL in the app bundle
+        guard let filePath = Bundle.main.url(forResource: path, withExtension: "wav") else {
+            print("Invalid URL for file: \(path)")
+            return
+        }
+        
+        // Create and play the AVPlayer
+        audioPlayer = AVPlayer(url: filePath)
+        audioPlayer?.volume = 1.0
+        audioPlayer?.play()
+    }
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 // Use NavigationLink to make the lemma clickable
-                    Text(entry.lemma)
+                Text(settings.modernOrthography ? DictUtils.convertNasals(entry.lemma) : entry.lemma)
                             .bold()
                             .textSelection(.enabled)
+                            .font(.system(size: settings.fontSize + 1))
+                if (entry.audio.count > 0) {
+                    Button(action: { playAudio(at: entry.audio[0]) }) {
+                        Image(systemName: "speaker.wave.3")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: settings.fontSize+7, height: settings.fontSize+7) // Adjust size as needed
+                            .foregroundColor(.gray) // Change color as desired
+                    }
+                }
                 Spacer()
                 if let wordClass = entry.wordClass, wordClass != "nan" {
                     Text("[\(wordClass)]")
@@ -569,17 +617,12 @@ struct ResultView: View {
                 (def.definition)
             }.joined(separator: ";")
             Text(def)
+                .font(.system(size: settings.fontSize))
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
 
 
 #Preview {
-    ContentView()
+    ContentView().environmentObject(AppSettings())
 }

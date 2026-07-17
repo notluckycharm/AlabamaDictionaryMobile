@@ -11,6 +11,8 @@ struct SettingsView: View {
     @Binding var isShowing: Bool
     @Binding var reMode: Bool
     @Binding var limitAudio: Bool
+    @EnvironmentObject var settings: AppSettings
+
         var edgeTransition: AnyTransition = .move(edge: .leading)
         var body: some View {
             ZStack(alignment: .bottom) {
@@ -38,6 +40,8 @@ struct SettingsView: View {
 struct SideMenu: View {
     @Binding var reMode: Bool
     @Binding var limitAudio: Bool
+    @EnvironmentObject var settings: AppSettings
+
     var body: some View {
         HStack{
             ZStack{
@@ -51,15 +55,33 @@ struct SideMenu: View {
                         .bold()
                         .padding()
                     HStack{
+                        Spacer()
+                        if #available(iOS 16.4, *) {
+                            TextModifyView()
+                                .frame(maxWidth: 200, maxHeight: 150)
+                                .presentationCompactAdaptation(.none)
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                        Spacer()
+                    }
+                    HStack{
+                        Image(systemName: "character.phonetic")
+                        Toggle("Modern orthography",
+                               isOn: $settings.modernOrthography
+                        )
+                    }.padding()
+                    HStack{
+                        Image(systemName: "waveform.circle")
+                        Toggle("Only show entries with audio",
+                               isOn: $limitAudio)
+                    }.padding()
+                    HStack{
                         Text("[.*]")
                         Toggle(
                             "Regular Expressions Mode",
                             isOn: $reMode
                         )
-                    }.padding()
-                    HStack{
-                        Toggle("Only show entries with audio",
-                               isOn: $limitAudio)
                     }.padding()
 //                    HStack{
 //                        Text("Limit results to:")

@@ -11,8 +11,8 @@ import AVFoundation
 struct EditorView: View {
     let entry: DictionaryEntry
     private var relatedTerms: [DictionaryEntry]
+    @EnvironmentObject var settings: AppSettings
     @State private var audioPlayer: AVPlayer? = nil
-    @State private var fontSize: CGFloat = 18
     @State private var showOverlay = false
     @State private var isFavorited: Bool
     
@@ -23,12 +23,13 @@ struct EditorView: View {
             self.relatedTerms = Self.loadRelatedTerms(for: entry)
         }
     
+    
     var body: some View {
         ScrollView{
             VStack{
                 HStack{
-                    Text(entry.lemma)
-                        .font(.system(size: fontSize + 8))
+                    Text(settings.modernOrthography ? DictUtils.convertNasals(entry.lemma) : entry.lemma)
+                        .font(.system(size: settings.fontSize + 8))
                         .bold()
                     if (entry.audio.count > 0) {
                         Button(action: { playAudio(at: entry.audio[0]) }) {
@@ -75,7 +76,7 @@ struct EditorView: View {
                         RelatedTermsView(relatedTerms: relatedTerms)
                     }
                     Spacer()
-                }.environment(\.font, .system(size: fontSize))
+                }.environment(\.font, .system(size: settings.fontSize))
             }
         }.toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -88,7 +89,7 @@ struct EditorView: View {
                         .foregroundColor(.gray)
                 }.popover(isPresented: $showOverlay, arrowEdge: .top) {
                     if #available(iOS 16.4, *) {
-                        TextModifyView(fontSize: $fontSize)
+                        TextModifyView()
                             .frame(maxWidth: 600, maxHeight: 300)
                             .presentationCompactAdaptation(.none)
                     } else {
@@ -238,7 +239,8 @@ struct DividerWithText: View {
 
 struct InflectionView: View {
     let entry: DictionaryEntry
-    
+    @EnvironmentObject var settings: AppSettings
+
     private var stem: String {
             let lemma = entry.lemma
             if entry.derivation?.contains("im-") ?? false {
@@ -282,17 +284,17 @@ struct InflectionView: View {
                 let ho = ["a", "i", "o", "á", "í", "ì", "ó", "ò", "à"].contains(entry.lemma.prefix(1)) ? "oh" : "ho"
                 VStack(spacing: 0) {
                     HStack {
-                        Text("\(entry.lemma)li")
+                        Text("\(settings.modernOrthography ? DictUtils.convertNasals(entry.lemma) : entry.lemma)li")
                         Spacer()
                         Text("First person singular").italic()
                     }
                     HStack {
-                        Text(pPs.first ?? "-")
+                        Text(settings.modernOrthography ? DictUtils.convertNasals(pPs.first ?? "-") : pPs.first ?? "-")
                         Spacer()
                         Text("Second person singular").italic()
                     }
                     HStack {
-                        Text(entry.lemma)
+                        Text(settings.modernOrthography ? DictUtils.convertNasals(entry.lemma) : entry.lemma)
                         Spacer()
                         Text("Third person singular").italic()
                     }
@@ -377,7 +379,8 @@ struct InflectionView: View {
 
 
 struct TextModifyView: View {
-    @Binding var fontSize: CGFloat
+    @EnvironmentObject var settings: AppSettings
+    @State private var draftFontSize: CGFloat = 16
     
     var body: some View {
         VStack(spacing:0){
@@ -387,19 +390,28 @@ struct TextModifyView: View {
                     .padding(.leading, 5 )
                 Spacer()
                 Text("Large text")
-                    .font(.system(size: 30))
+                    .font(.system(size: 28))
                     .padding(.trailing, 5)
             }
-            Slider(value: $fontSize, in: 12...30) {
-                Text("Font Size")
-            }.padding(10)
+            Slider(
+                        value: $draftFontSize,
+                        in: 12...32,
+                        step: 1,
+                        onEditingChanged: { isEditing in
+                            if !isEditing {
+                                settings.fontSize = draftFontSize // commit only when drag ends
+                            }
+                        }
+            ).padding(10)
+                    .onAppear { draftFontSize = settings.fontSize }
         }
     }
 }
 
 struct RelatedTermsView: View {
     let relatedTerms: [DictionaryEntry]
-    
+    @EnvironmentObject var settings: AppSettings
+
     var body: some View {
         LazyVStack{
             ForEach(relatedTerms) { entry in

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct FavoritesView: View {
     @State private var bookmarkedEntries: [DictionaryEntry] = FavoritesManager.shared.getFavorites()
-    
+    @EnvironmentObject var settings: AppSettings
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -20,7 +21,7 @@ struct FavoritesView: View {
                         NavigationLink(destination: EditorView(entry: entry)) {
                             VStack {
                                 HStack {
-                                    Text(entry.lemma).bold()
+                                    Text(settings.modernOrthography ? DictUtils.convertNasals(entry.lemma) : entry.lemma).bold()
                                     Spacer()
                                 }
                                 HStack {

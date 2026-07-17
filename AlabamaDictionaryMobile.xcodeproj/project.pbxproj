@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -130,6 +130,8 @@
 		49E06A772D23884600F81A3C /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E06A762D23884600F81A3C /* AboutView.swift */; };
 		49E06A792D2484CC00F81A3C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E06A782D2484CC00F81A3C /* SettingsView.swift */; };
 		49EC06AA2C0A93300088D3DD /* dict.json in Resources */ = {isa = PBXBuildFile; fileRef = 49EC06A92C0A93300088D3DD /* dict.json */; };
+		49F6ED5D300A917A0000648A /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F6ED5B300A91750000648A /* AppSettings.swift */; };
+		49F6ED5F300A95CD0000648A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F6ED5E300A95CB0000648A /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -278,7 +280,13 @@
 		49E06A762D23884600F81A3C /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		49E06A782D2484CC00F81A3C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		49EC06A92C0A93300088D3DD /* dict.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dict.json; sourceTree = "<group>"; };
+		49F6ED5B300A91750000648A /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		49F6ED5E300A95CB0000648A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		49F6ED5A300A91680000648A /* SRC */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SRC; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		492E7B0B2BEB23B500F3A30E /* Frameworks */ = {
@@ -329,6 +337,9 @@
 		492E7B102BEB23B500F3A30E /* AlabamaDictionaryMobile */ = {
 			isa = PBXGroup;
 			children = (
+				49F6ED5E300A95CB0000648A /* Utils.swift */,
+				49F6ED5B300A91750000648A /* AppSettings.swift */,
+				49F6ED5A300A91680000648A /* SRC */,
 				49E06A0A2D20CCF200F81A3C /* audios */,
 				492E7B112BEB23B500F3A30E /* AlabamaDictionaryMobileApp.swift */,
 				492D93EB2D41DDB300758C47 /* LessonView.swift */,
@@ -501,6 +512,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				49F6ED5A300A91680000648A /* SRC */,
 			);
 			name = AlabamaDictionaryMobile;
 			productName = AlabamaDictionaryMobile;
@@ -723,8 +737,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49F6ED5D300A917A0000648A /* AppSettings.swift in Sources */,
 				49E06A792D2484CC00F81A3C /* SettingsView.swift in Sources */,
 				49AA09832D2D9DB800DB2305 /* BookmarkManager.swift in Sources */,
+				49F6ED5F300A95CD0000648A /* Utils.swift in Sources */,
 				49E06A772D23884600F81A3C /* AboutView.swift in Sources */,
 				496136052D40945700428B83 /* LearnView.swift in Sources */,
 				49E068CD2D2078B600F81A3C /* EditorView.swift in Sources */,
