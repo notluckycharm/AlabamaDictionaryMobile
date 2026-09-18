@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @State private var bookmarkedEntries: [DictionaryEntry] = FavoritesManager.shared.getFavorites()
+    @State private var bookmarkedEntries: [DictionaryEntry] = []
     @EnvironmentObject var settings: AppSettings
 
     var body: some View {
@@ -16,25 +16,20 @@ struct FavoritesView: View {
             ScrollView {
                 LazyVStack(alignment: .leading) {
                     ForEach(bookmarkedEntries) { entry in
-                        let def = entry.definition.map { $0.definition }.joined(separator: ";")
-                        
                         NavigationLink(destination: EditorView(entry: entry)) {
-                            VStack {
-                                HStack {
-                                    Text(settings.modernOrthography ? DictUtils.convertNasals(entry.lemma) : entry.lemma).bold()
-                                    Spacer()
-                                }
-                                HStack {
-                                    Text(def)
-                                    Spacer()
-                                }
-                            }
+                            ResultView(entry: entry, simple: true)
                         }
                         .buttonStyle(PlainButtonStyle())
                         Divider()
                     }
                 }
             }
+            .task {
+                let favorites = await Task.detached(priority: .userInitiated) {
+                        FavoritesManager.shared.getFavorites()
+                    }.value
+                    bookmarkedEntries = favorites
+                    }
             .frame(maxHeight: .infinity)
             .navigationTitle("Favorites")
             .toolbar {
@@ -58,9 +53,4 @@ struct FavoritesView: View {
         }
     }
 
-}
-
-
-#Preview {
-    FavoritesView()
 }

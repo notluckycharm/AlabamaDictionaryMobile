@@ -117,25 +117,78 @@ struct ContentView: View {
         ZStack{
             TabView{
                 VStack{
-                    HeaderView()
-                    NavigationStack{
-                        VStack(spacing: 0) {
-                            SearchBarView(searchText: $searchText, reMode: $reMode, dictSort: dictSort, clearInput: clearInput, presentSideMenu: $presentSideMenu)
-                            ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
-                            ResultsView(searchResults: $loadedResults, shown: $shown, shownMax: $shownMax)
-                        }
+                    if loadedResults.isEmpty {
+                            ZStack{
+                                UnevenRoundedRectangle(
+                                        bottomLeadingRadius: 60,
+                                        bottomTrailingRadius: 60
+                                    )
+                                    .fill(Color(red: 218/255, green: 57/255, blue: 65/255))
+                                    .ignoresSafeArea()
+                                VStack{
+                                    HStack{
+                                        Button(action: { presentSideMenu.toggle() }) {
+                                            Image(systemName: "gearshape.fill")
+                                                .foregroundColor(.white)
+                                                .imageScale(.large)
+                                        }.padding(.horizontal, 25)
+                                        Spacer()
+                                    }
+                                    Spacer()
+                                }
+                                VStack{
+                                    VStack{
+                                            Image("Alabama-Coushata")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 75, height: 75).padding(.top)
+                                            Text("The Alabama Dictionary")
+                                                .font(.system(size: settings.fontSize + 10, weight: .medium))
+                                                .foregroundColor(.white)
+                                        
+                                    }
+                                    .padding(.top, 0)
+                                    SearchBarView(searchText: $searchText, reMode: $reMode, dictSort: dictSort, clearInput: clearInput, presentSideMenu: $presentSideMenu, loadedResults: $loadedResults).padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                                    Spacer()
+                                }
+                            }.frame(maxHeight: 320)
+                            VStack{
+                                NavigationStack{
+                                    VStack(spacing: 0) {
+                                        ResultsView(searchResults: $loadedResults, shown: $shown, shownMax: $shownMax,
+                                                    allEntries: $allEntries)
+                                    }
+                                }
+                                .padding()
+                                .onAppear {
+                                    DispatchQueue.global(qos: .background).async {
+                                        let dictionaryData: DictionaryData = loadJSON("dict.json")
+                                        DispatchQueue.main.async {
+                                            allEntries = dictionaryData.words
+                                        }
+                                    }
+                                }
+                            }
                     }
-                    .padding()
-                    .onAppear {
-                        DispatchQueue.global(qos: .background).async {
-                            let dictionaryData: DictionaryData = loadJSON("dict.json")
-                            DispatchQueue.main.async {
-                                allEntries = dictionaryData.words
+                    else {
+                        HeaderView()
+                        NavigationStack{
+                            VStack(spacing: 0) {
+                                SearchBarView(searchText: $searchText, reMode: $reMode, dictSort: dictSort, clearInput: clearInput, presentSideMenu: $presentSideMenu, loadedResults: $loadedResults)
+                                ResultsView(searchResults: $loadedResults, shown: $shown, shownMax: $shownMax,allEntries: $allEntries).padding(.top,4)
+                                ResultsNavigationView(shown: $shown, shownMax: $shownMax, updateResults: updateResults)
+                            }
+                        }
+                        .padding()
+                        .onAppear {
+                            DispatchQueue.global(qos: .background).async {
+                                let dictionaryData: DictionaryData = loadJSON("dict.json")
+                                DispatchQueue.main.async {
+                                    allEntries = dictionaryData.words
+                                }
                             }
                         }
                     }
-                    
-                    
                 }.tabItem {
                     Label("Dictionary", systemImage: "text.book.closed.fill")
                 }
@@ -143,10 +196,10 @@ struct ContentView: View {
                     .tabItem {
                         Label("About", systemImage: "info.circle.fill")
                     }
-                SettingsView(isShowing: $presentSideMenu, reMode: $reMode, limitAudio: $limitAudio)
-                    .zIndex(1).tabItem{
-                        Label("Settings", systemImage:"gear")
-                    }
+//                SettingsView(isShowing: $presentSideMenu, reMode: $reMode, limitAudio: $limitAudio)
+//                    .zIndex(1).tabItem{
+//                        Label("Settings", systemImage:"gear")
+//                    }
                 FavoritesView().tabItem {
                     Label("Favorites", systemImage: "bookmark.fill")
                 }
@@ -188,6 +241,14 @@ struct ContentView: View {
     
     func dictSort() {
         let string = !reMode ? DictUtils.removeAccents(searchText.lowercased()) : searchText
+        if string == "" {
+            DispatchQueue.main.async {
+                shownMax = 0
+                loadedResults = []
+                isLoading = false
+            }
+            return
+        }
         let strippedSearchText = stripped(string: string)
         DispatchQueue.global(qos: .userInitiated).async {
             isLoading = true
@@ -389,19 +450,28 @@ struct ContentView: View {
 struct HeaderView: View {
     @EnvironmentObject var settings: AppSettings
     var body: some View {
-        VStack(){
-            HStack(alignment: .center, spacing: 16) {
-                Image("Alabama-Coushata")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 75, height: 75)
-                Text("Alabama Dictionary")
-                    .font(.system(size: settings.fontSize + 7, weight: .medium))
-                    .foregroundColor(.primary)
-                    .padding(.vertical)
+        ZStack{
+            UnevenRoundedRectangle(
+                    bottomLeadingRadius: 60,
+                    bottomTrailingRadius: 60
+                )
+                .fill(Color(red: 218/255, green: 57/255, blue: 65/255))
+                .ignoresSafeArea()
+            VStack(){
+                HStack(alignment: .center, spacing: 16) {
+                    Image("Alabama-Coushata")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 75, height: 75)
+                    Text("Alabama Dictionary")
+                        .font(.system(size: settings.fontSize + 7, weight: .medium))
+                        .foregroundColor(.white)
+                        .padding(.vertical)
+                }.padding(.horizontal, 8)
+                    .padding(.bottom, 16)
+                    .frame(maxWidth: .infinity)
             }
-        }
-        .padding(.top, 0)
+        }.frame(maxHeight:120)
     }
 }
 
@@ -422,6 +492,7 @@ struct SearchBarView: View {
     var dictSort: () -> Void
     var clearInput: () -> Void
     @Binding var presentSideMenu: Bool
+    @Binding var loadedResults: [DictionaryEntry]
     let characters = ["ɬ", "á", "à", "ó", "ò", "í", "ì", "ⁿ"]
     var body: some View {
         VStack(spacing: 0){
@@ -433,7 +504,8 @@ struct SearchBarView: View {
                         }
                         .frame(height: 48)
                         .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
-                                        .cornerRadius(5)
+                        .background(Color.white)
+                                        .cornerRadius(8)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 10)
                                                 .stroke(lineWidth: 1.0)
@@ -453,11 +525,12 @@ struct SearchBarView: View {
                             }
                         )
                 }
-                Button(action: { presentSideMenu.toggle() }) {
-                    Image(systemName: "gearshape.fill")
-                        .foregroundColor(.gray)
-                        .imageScale(.large)
-                        .padding(.trailing, 25)
+                if !loadedResults.isEmpty {
+                    Button(action: { presentSideMenu.toggle() }) {
+                        Image(systemName: "gearshape.fill")
+                            .foregroundColor(.gray)
+                            .imageScale(.large)
+                    }.padding(.horizontal, 25)
                 }
             }
             HStack(spacing: 0) {
@@ -467,13 +540,14 @@ struct SearchBarView: View {
                             searchText.append(character)
                         }) {
                             Text(character)
+                                .foregroundColor(!loadedResults.isEmpty ? Color.black : Color.white)
                                 .frame(minWidth: 44, maxHeight: 44)  // Adjust the width and height as needed
-                                .background(Color.blue.opacity(0.2))  // Optional: Add background color for better visibility
-                                .cornerRadius(0)  // Optional: Set corner radius to 0 to avoid rounded corners
+                                .background(!loadedResults.isEmpty ? Color.blue.opacity(0.2) : Color.black.opacity(0.1))
+                                .cornerRadius(0)
                         }
                     }
                 }
-            }
+            }.cornerRadius(10)
             .frame(maxWidth: .infinity, alignment: .center)  // Ensure buttons take up available width
         }
     }
@@ -494,15 +568,15 @@ struct ResultsNavigationView: View {
     var body: some View {
         HStack {
             Button(action: { updateResults(-50) }) {
-                Text("<")
+                Image(systemName: "chevron.left")
                     .font(.system(size: settings.fontSize + 12))
                     
             }
             .frame(height: 10.0)
-            Text("\(shown) - \(shown + min(50, shownMax - shown)) Results Shown out of \(shownMax)")
+            Text("\(shown) - \(shown + min(50, shownMax - shown)) out of \(shownMax)")
                 .font(.system(size:settings.fontSize))
             Button(action: { updateResults(50) }) {
-                Text(">").font(.system(size: settings.fontSize + 12))
+                Image(systemName: "chevron.right").font(.system(size: settings.fontSize + 12))
             }
         }
     }
@@ -513,6 +587,7 @@ struct ResultsView: View {
     @Binding var shown: Int
     @Binding var shownMax: Int
     @EnvironmentObject var settings: AppSettings
+    @Binding var allEntries: [DictionaryEntry]
 
     var body: some View {
         NavigationStack {
@@ -527,17 +602,55 @@ struct ResultsView: View {
                             .buttonStyle(PlainButtonStyle())
                             Divider()
                         }
+                    }.navigationDestination(for: DictionaryEntry.self) { entry in
+                        EditorView(entry: entry)
                     }
                 }
                 else{
                     Spacer()
-                    Text("Enter text in the search bar above and press Enter to look up words!")
-                        .font(.system(size: settings.fontSize))
+                    HStack{
+                        Text("Ontichoka!")
+                            .font(.system(size: settings.fontSize + 10))
+                        Spacer()
+                    }.padding(.horizontal)
+                    HStack{
+                        Text("Welcome!")
+                            .font(.system(size: settings.fontSize - 5))
+                            .italic()
+                        Spacer()
+                    }.padding(.top, -10)
+                        .padding(.bottom)
+                        .padding(.horizontal)
+                    HStack{
+                        Text("Welcome to the Alabama Dictionary IOS app. To search up English or Alabama words, input either English or Alabama text in the search bar above.")
+                            .font(.system(size: settings.fontSize - 3))
+                        Spacer()
+                    }.padding(.horizontal)
+                    HStack{
+                        Text("To learn more about a word, tap anywhere on a search result, and a popup with pronunciation information, sample usage, and related words will appear.")
+                            .font(.system(size: settings.fontSize - 3))
+                        Spacer()
+                    }.padding(.top)
+                        .padding(.horizontal)
+                    HStack{
+                        Text("Word of the Day")
+                            .font(.system(size: settings.fontSize + 10))
+                        Spacer()
+                    }.padding()
+                    let provider = DictUtils.WordOfTheDayProvider(entries: allEntries, banList: ["rape", "sex", "gay", "Var.", "Imp. of", "Negative form of"])
+                    if let todayEntry = provider.entry() {
+                        NavigationLink(destination: EditorView(entry: todayEntry)) {
+                            ResultView(entry: todayEntry, simple: false)
+                                .contentShape(Rectangle())
+                        }
+                        .padding()
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
+                        .buttonStyle(PlainButtonStyle())
+                    }
                     Spacer()
                 }
             }.frame(maxHeight: .infinity)
-        }.navigationDestination(for: DictionaryEntry.self) { entry in
-            EditorView(entry: entry)
         }
     }
 }

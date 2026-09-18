@@ -15,15 +15,15 @@ class FavoritesManager {
     private init() {}
 
     private var modified = false
-    
+
     func modify() {
         modified = true
     }
-    
+
     func getModify() -> Bool {
         return modified
     }
-    
+
     // Save a word to favorites
     func addFavorite(word: DictionaryEntry) {
         var favorites = getFavorites()
